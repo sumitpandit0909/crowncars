@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro"
+import GeneralHero from "../components/global/GeneralHero.astro"
+import AboutUs from "../components/home/AboutUs.astro"
+import Mission from "../components/about/Mission.astro"
+import WhyUs from "../components/home/WhyUs.astro"
+import Testimonials from "../components/home/Testimonials.astro"
+import {seo} from "../lib/config.json"
+
+---
+
+<Layout title={seo.about.title} description={seo.about.description}>
+    <GeneralHero title="About Us"/>
+    <AboutUs/>
+    <Mission/>
+    <WhyUs/>
+    <Testimonials/>
+
+    
+</Layout>

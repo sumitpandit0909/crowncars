@@ -1,0 +1,64 @@
+[
+  {
+    "name": "Tata Tiago",
+    "model": "2022",
+    "images": [
+      "https://imgd-ct.aeplcdn.com/1056x660/n/cw/ec/39345/tiago-exterior-right-front-three-quarter-5.jpeg?q=80",
+      "https://imgd.aeplcdn.com/664x374/n/cw/ec/39345/tiago-exterior-left-side-view-2.jpeg?q=80"
+    ],
+    "type": "hatchback",
+    "features": {
+      "fuel": "petrol",
+      "transmission": "automatic",
+      "music_system": true,
+      "color": "blue",
+      "seater": "5",
+      "fastag": "active",
+      "extra": ["rear camera", "air purifier"]
+    },
+    "price": "110",
+    "offers": "5%",
+    "offer_description": "Min 12hrs"
+  },
+  {
+    "name": "Tata Altroz",
+    "model": "2023",
+    "images": [
+      "https://imgd-ct.aeplcdn.com/1056x660/n/cw/ec/32597/altroz-exterior-left-rear-three-quarter-3.jpeg?isig=0&q=80",
+      "https://www.v3cars.com/media/model-imgs/1664865463-Tata%20Altroz%20Dark.webp"
+    ],
+    "type": "hatchback",
+    "features": {
+      "fuel": "diesel",
+      "transmission": "manual",
+      "music_system": true,
+      "color": "red",
+      "seater": "5",
+      "fastag": "active",
+      "extra": ["ambient light", "wireless charging"]
+    },
+    "price": "130",
+    "offers": "15%",
+    "offer_description": "Min 48hrs"
+  },
+  {
+    "name": "Mahindra Scorpio",
+    "model": "2020",
+    "images": [
+      "https://img.gaadicdn.com/images/carexteriorimages/large/Mahindra/Scorpio-Classic/10764/1690268502010/exterior-image-165.jpg"
+    ],
+    "type": "SUV",
+    "features": {
+      "fuel": "diesel",
+      "transmission": "manual",
+      "music_system": true,
+      "color": "black",
+      "seater": "7",
+      "fastag": "active",
+      "extra": ["sunroof", "rear camera", "roof rails"]
+    },
+    "price": "180",
+    "offers": "20%",
+    "offer_description": "Min 48hrs"
+  }
+]

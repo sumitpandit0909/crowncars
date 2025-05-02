@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+import logo from "../../assets/images/logofoot.png";
+import {socials} from "../../lib/config.json";
+---
+
+<!-- Footer Start -->
+<footer class="main-footer bg-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- About Footer Start -->
+        <div class="about-footer">
+          <!-- Footer Logo Start -->
+          <div class="footer-logo">
+            <Image
+              format="avif"
+              src={logo}
+              alt="footerimg"
+              width={200}
+              height={100}
+              style="object-fit: contain;"
+            />
+          </div>
+          <!-- Footer Logo End -->
+
+          <!-- About Footer Content Start -->
+          <div class="about-footer-content">
+            <p>
+              Experience the ease and convenience of renting a car with
+              Novaride.
+            </p>
+          </div>
+          <!-- About Footer Content End -->
+        </div>
+        <!-- About Footer End -->
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <!-- Footer Quick Links Start -->
+        <div class="footer-links footer-quick-links">
+          <h3>legal policy</h3>
+          <ul>
+            <li><a href="/terms">term & condition</a></li>
+            <li><a href="/privacy">privacy policy</a></li>
+          </ul>
+        </div>
+        <!-- Footer Quick Links End -->
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <!-- Footer Menu Start -->
+        <div class="footer-links footer-menu">
+          <h3>Contact Us</h3>
+          <ul>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <!-- Footer Menu End -->
+      </div>
+      <div class="col-lg-3 col-md-4">
+        <!-- Footer Menu Start -->
+        <div class="footer-links footer-menu">
+          <h3>quick links</h3>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/about">about us</a></li>
+            <li><a href="/cars">cars</a></li>
+          </ul>
+        </div>
+        <!-- Footer Menu End -->
+      </div>
+    </div>
+
+    <!-- Footer Copyright Section Start -->
+    <div class="footer-copyright">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-7">
+          <!-- Footer Copyright Start -->
+          <div class="footer-copyright-text">
+            <p>© 2025 CROWN CARS. All rights reserved.</p>
+          </div>
+          <!-- Footer Copyright End -->
+        </div>
+
+        <div class="col-lg-6 col-md-5">
+          <!-- Footer Social Link Start -->
+          <div class="footer-social-links">
+            <ul>
+              {
+                socials.slice(0,5).map((item) => (
+                  <li><a href={item.url}><i class={item.iconClass}></i></a></li>
+                ))
+              }
+            </ul>
+          </div>
+          <!-- Footer Social Link End -->
+        </div>
+      </div>
+    </div>
+    <!-- Footer Copyright Section End -->
+  </div>
+</footer>
+<!-- Footer End -->

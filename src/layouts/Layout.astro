@@ -1,0 +1,98 @@
+---
+import "../assets/css/bootstrap.min.css";
+import "../assets/css/slicknav.min.css";
+import "../assets/css/all.css";
+import "../assets/css/animate.css";
+import "../assets/css/magnific-popup.css";
+import "../assets/css/custom.css";
+import "../assets/css/mousecursor.css";
+import "../assets/css/swiper-bundle.min.css";
+import loader from "../assets/images/loader.svg";
+import Header from "../components/global/Header.astro";
+import Footer from "../components/global/Footer.astro";
+import { Image } from "astro:assets";
+const { title, description } = Astro.props;
+import {socials} from "../lib/config.json"
+---
+
+<!doctype html>
+<html lang="zxx">
+  <!-- Mirrored from html.awaikenthemes.com/novaride/dark/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 23 Mar 2025 08:17:47 GMT -->
+  <head>
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Awaiken" />
+    <!-- Page Title -->
+    <title>{title}</title>
+    <!-- Favicon Icon -->
+    <meta name="description" content={description} />
+    <link rel="shortcut icon" type="image/x-icon" href="/logofoot.png" />
+    <!-- Google Fonts Css-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Preloader Start -->
+    <div class="preloader">
+      <div class="loading-container">
+        <div class="loading"></div>
+        <div id="loading-icon">
+          <Image src={loader} alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- Preloader End -->
+    <Header />
+    <slot />
+    <Footer />
+
+    <!-- WhatsApp Button -->
+    <a href={socials.whatsapp} class="whatsapp-float" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Jquery Library File -->
+    <script defer is:inline src="/js/jquery-3.7.1.min.js"></script>
+    <!-- Jquery Ui Js File -->
+    <script defer is:inline src="/js/jquery-ui.js"></script>
+    <!-- Bootstrap js file -->
+    <script defer is:inline src="/js/bootstrap.min.js"></script>
+    <!-- Validator js file -->
+    <script defer is:inline src="/js/validator.min.js"></script>
+    <!-- SlickNav js file -->
+    <script defer is:inline src="/js/jquery.slicknav.js"></script>
+    <!-- Swiper js file -->
+    <script defer is:inline src="/js/swiper-bundle.min.js"></script>
+    <!-- Counter js file -->
+    <script defer is:inline src="/js/jquery.waypoints.min.js"></script>
+    <script defer is:inline src="/js/jquery.counterup.min.js"></script>
+    <!-- Magnific js file -->
+    <script defer is:inline src="/js/jquery.magnific-popup.min.js"></script>
+    <!-- SmoothScroll -->
+    <script defer is:inline src="/js/SmoothScroll.js"></script>
+    <!-- Parallax js -->
+    <script defer is:inline src="/js/parallaxie.js"></script>
+    <!-- MagicCursor js file -->
+    <script defer is:inline src="/js/gsap.min.js"></script>
+    <script defer is:inline src="/js/magiccursor.js"></script>
+    <!-- Text Effect js file -->
+    <script defer is:inline src="/js/SplitText.js"></script>
+    <script defer is:inline src="/js/ScrollTrigger.min.js"></script>
+    <!-- YTPlayer js File -->
+    <script defer is:inline src="/js/jquery.mb.YTPlayer.min.js"></script>
+    <!-- Wow js file -->
+    <script defer is:inline src="/js/wow.js"></script>
+    <!-- Main Custom js file -->
+    <script defer is:inline src="/js/function.js"></script>
+    <script defer src="../../../demo.awaikenthemes.com/assets/js/theme-panel.js"
+    ></script>
+  </body>
+</html>

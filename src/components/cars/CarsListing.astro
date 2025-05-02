@@ -1,0 +1,651 @@
+---
+import carsData from "../../lib/carsData.json";
+import arrow from "../../assets/images/arrow-white.svg";
+import { Image } from "astro:assets";
+import { FaUserFriends, FaCog, FaGasPump, FaPalette } from "react-icons/fa";
+import { Fragment } from "react";
+import {socials} from "../../lib/config.json"
+import { FaFilter } from 'react-icons/fa';
+// import { Filter } from 'lucide-react';
+---
+
+<!-- Page Fleets Start -->
+<div class="page-fleets">
+    <div class="container">
+        <div class="row" >
+          <div class="col-lg-3">
+            <!-- Mobile Filter Toggle Button -->
+            <div class="mobile-filter-toggle">
+                <button id="filterToggleBtn" class="filter-toggle-btn">
+                    <span class="filter-icon"><FaFilter/></span>
+                    <span class="filter-text">Filters</span>
+                </button>
+            </div>
+            <!-- Fleets Sidebar Start -->
+            <div class="fleets-sidebar wow fadeInUp" id="filterSidebar">
+               
+                <div class="fleets-sidebar-list-box">
+                    <!-- Search Bar Start -->
+                    <div class="fleets-search-box">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="carSearch" placeholder="Search cars...">
+                            <button type="submit" class="section-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                    <!-- Search Bar End -->
+
+                    <!-- Fleets Sidebar List Start -->
+                    <div class="fleets-sidebar-list">
+                        <div class="fleets-list-title">
+                            <h3>Transmission Type</h3>
+                        </div>
+
+                        <ul>
+                            <li class="form-check">
+                                <input class="form-check-input transmission-filter" type="checkbox" value="automatic" id="transmission1">
+                                <label class="form-check-label" for="transmission1">Automatic</label>
+                            </li>
+
+                            <li class="form-check">
+                                <input class="form-check-input transmission-filter" type="checkbox" value="manual" id="transmission2">
+                                <label class="form-check-label" for="transmission2">Manual</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Fleets Sidebar List End -->
+
+                    <!-- Fleets Sidebar List Start -->
+                    <div class="fleets-sidebar-list">
+                        <div class="fleets-list-title">
+                            <h3>Fuel Type</h3>
+                        </div>
+
+                        <ul>
+                            <li class="form-check">
+                                <input class="form-check-input fuel-filter" type="checkbox" value="diesel" id="fuel1">
+                                <label class="form-check-label" for="fuel1">Diesel</label>
+                            </li>
+                            <li class="form-check">
+                                <input class="form-check-input fuel-filter" type="checkbox" value="petrol" id="fuel2">
+                                <label class="form-check-label" for="fuel2">Petrol</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Fleets Sidebar List End -->
+
+                    <!-- Seater Filter Start -->
+                    <div class="fleets-sidebar-list">
+                        <div class="fleets-list-title">
+                            <h3>Seater Type</h3>
+                        </div>
+
+                        <ul>
+                            <li class="form-check">
+                                <input class="form-check-input seater-filter" type="checkbox" value="5" id="seater1">
+                                <label class="form-check-label" for="seater1">5 Seater</label>
+                            </li>
+                            <li class="form-check">
+                                <input class="form-check-input seater-filter" type="checkbox" value="7" id="seater2">
+                                <label class="form-check-label" for="seater2">7 Seater</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Seater Filter End -->
+
+                    <!-- Price Filter Start -->
+                    <div class="fleets-sidebar-list">
+                        <div class="fleets-list-title">
+                            <h3>Price Range</h3>
+                        </div>
+
+                        <ul>
+                            <li class="form-check">
+                                <input class="form-check-input price-filter" type="radio" value="high-to-low" id="price1" name="priceFilter">
+                                <label class="form-check-label" for="price1">High to Low</label>
+                            </li>
+                            <li class="form-check">
+                                <input class="form-check-input price-filter" type="radio" value="low-to-high" id="price2" name="priceFilter">
+                                <label class="form-check-label" for="price2">Low to High</label>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Price Filter End -->
+                </div>                        
+            </div>
+            <!-- Fleets Sidebar End -->
+        </div>
+            <div class="col-lg-9">
+                <div class="fleets-collection-box">
+                    <div class="row">
+                        {carsData.map((car) => (
+                            <Fragment>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="perfect-fleet-item fleets-collection-item wow fadeInUp">
+                                        <!-- Image Slider Start -->
+                                        <div class="image-box car-slider" id={`slider-${car.name}`} data-car-name={car.name}>
+                                            <div class="slider-images">
+                                                {car.images.map((img, index) => (
+                                                    <div class="slider-image" data-index={index} style={{display: index === 0 ? 'block' : 'none'}}>
+                                                        <Image src={img} width={800} height={450} alt={`Car ${index + 1}`} />
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <!-- Arrow Navigation -->
+                                            <div class="slider-arrow prev-arrow">&#10094;</div>
+                                            <div class="slider-arrow next-arrow">&#10095;</div>
+
+                                            <div class="slider-nav">
+                                                {car.images.map((_, index) => (
+                                                    <span class={`nav-dot ${index === 0 ? 'active' : ''}`} data-index={index}></span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <!-- Image Slider End -->
+
+                                        <div class="perfect-fleet-content">
+                                            <div class="perfect-fleet-title">
+                                                <h3>{car.name} - {car.model}</h3>
+                                            </div>
+
+                                            <div class="perfect-fleet-body">
+                                                <ul>
+                                                    <li><FaUserFriends /> <span>{car.features.seater} seater</span></li>
+                                                    <li><FaCog /> <span>{car.features.transmission}</span></li>
+                                                    <li><FaGasPump /> <span>{car.features.fuel}</span></li>
+                                                    <li><FaPalette /> <span>{car.features.color}</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="more-details">
+                                                <input type="checkbox" id={`more-details-${car.name}`} class="more-details-checkbox">
+                                                <label for={`more-details-${car.name}`} class="more-details-label">
+                                                    <span class="label-text">More Details</span>
+                                                    <span class="arrow">▼</span>
+                                                </label>
+                                                <div class="more-details-content">
+                                                    <ul>
+                                                        <li class="type-item">Type: {car.type}</li>
+                                                        {
+                                                            car.features.extra.map((item)=>{
+                                                                return <li>{item}</li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="perfect-fleet-footer">
+                                                <div class="perfect-fleet-pricing">
+                                                    <h2>₹{car.price}<span>/hr</span></h2>
+                                                </div>
+
+                                                <div class="perfect-fleet-btn">
+                                                    <a href={socials.whatsapp} target="_blank" class="section-icon-btn"><i class="fa-brands fa-whatsapp" style="color: white;font-size: 20px;"></i></a>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p>{car.offers} Off - {car.offer_description}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Fragment>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Mobile filter toggle functionality
+    const filterToggleBtn = document.getElementById('filterToggleBtn');
+    const filterSidebar = document.getElementById('filterSidebar');
+    
+    if (filterToggleBtn && filterSidebar) {
+        filterToggleBtn.addEventListener('click', () => {
+            filterSidebar.classList.toggle('active');
+            const isActive = filterSidebar.classList.contains('active');
+            filterToggleBtn.querySelector('.filter-text').textContent = isActive ? 'Hide Filters' : 'Filters';
+        });
+    }
+
+    // Filter functionality
+    const transmissionFilters = document.querySelectorAll('.transmission-filter');
+    const fuelFilters = document.querySelectorAll('.fuel-filter');
+    const seaterFilters = document.querySelectorAll('.seater-filter');
+    const priceFilters = document.querySelectorAll('.price-filter');
+    const carItems = document.querySelectorAll('.fleets-collection-item');
+    const searchInput = document.getElementById('carSearch') as HTMLInputElement;
+
+    function filterCars() {
+        const searchTerm = searchInput?.value.toLowerCase() || '';
+        const selectedTransmissions = Array.from(transmissionFilters)
+            .filter(checkbox => (checkbox as HTMLInputElement).checked)
+            .map(checkbox => (checkbox as HTMLInputElement).value);
+        
+        const selectedFuels = Array.from(fuelFilters)
+            .filter(checkbox => (checkbox as HTMLInputElement).checked)
+            .map(checkbox => (checkbox as HTMLInputElement).value);
+
+        const selectedSeaters = Array.from(seaterFilters)
+            .filter(checkbox => (checkbox as HTMLInputElement).checked)
+            .map(checkbox => (checkbox as HTMLInputElement).value);
+
+        const selectedPriceFilter = Array.from(priceFilters)
+            .find(radio => (radio as HTMLInputElement).checked)?.value;
+
+        // Get all visible car items
+        const visibleCarItems = Array.from(carItems).filter(carItem => {
+            const transmission = carItem.querySelector('.perfect-fleet-body li:nth-child(2) span')?.textContent;
+            const fuel = carItem.querySelector('.perfect-fleet-body li:nth-child(3) span')?.textContent;
+            const seater = carItem.querySelector('.perfect-fleet-body li:nth-child(1) span')?.textContent;
+            const carName = carItem.querySelector('.perfect-fleet-title h3')?.textContent?.toLowerCase() || '';
+            
+            const matchesTransmission = selectedTransmissions.length === 0 || selectedTransmissions.includes(transmission);
+            const matchesFuel = selectedFuels.length === 0 || selectedFuels.includes(fuel);
+            const matchesSeater = selectedSeaters.length === 0 || selectedSeaters.some(s => seater?.includes(s));
+            const matchesSearch = searchTerm === '' || carName.includes(searchTerm);
+            
+            return matchesTransmission && matchesFuel && matchesSeater && matchesSearch;
+        });
+
+        // Sort cars based on price if a price filter is selected
+        if (selectedPriceFilter) {
+            visibleCarItems.sort((a, b) => {
+                const priceA = parseInt(a.querySelector('.perfect-fleet-pricing h2')?.textContent.replace(/[^0-9]/g, '') || '0');
+                const priceB = parseInt(b.querySelector('.perfect-fleet-pricing h2')?.textContent.replace(/[^0-9]/g, '') || '0');
+                
+                return selectedPriceFilter === 'high-to-low' ? priceB - priceA : priceA - priceB;
+            });
+        }
+
+        // Update visibility of all car items
+        carItems.forEach(carItem => {
+            const parentCol = carItem.closest('.col-lg-4');
+            if (parentCol) {
+                parentCol.style.display = visibleCarItems.includes(carItem) ? '' : 'none';
+            }
+        });
+
+        // Reorder visible items in the DOM
+        const container = document.querySelector('.fleets-collection-box .row');
+        if (container) {
+            visibleCarItems.forEach(item => {
+                container.appendChild(item.closest('.col-lg-4'));
+            });
+        }
+    }
+
+    transmissionFilters.forEach(filter => {
+        filter.addEventListener('change', filterCars);
+    });
+
+    fuelFilters.forEach(filter => {
+        filter.addEventListener('change', filterCars);
+    });
+
+    seaterFilters.forEach(filter => {
+        filter.addEventListener('change', filterCars);
+    });
+
+    priceFilters.forEach(filter => {
+        filter.addEventListener('change', filterCars);
+    });
+
+    // Image slider functionality
+    const carSliders = document.querySelectorAll('.car-slider');
+    
+    // Set up each slider
+    carSliders.forEach(slider => {
+      const images = slider.querySelectorAll('.slider-image');
+      const dots = slider.querySelectorAll('.nav-dot');
+      const prevArrow = slider.querySelector('.prev-arrow');
+      const nextArrow = slider.querySelector('.next-arrow');
+      let currentIndex = 0;
+      const totalImages = images.length;
+      
+      // Touch swipe variables
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const minSwipeDistance = 50; // Minimum distance for a swipe to be registered
+      
+      // Function to show image by index
+      function showImage(index) {
+        // Make sure index is within bounds
+        if (index < 0) index = totalImages - 1;
+        if (index >= totalImages) index = 0;
+        
+        // Update current index
+        currentIndex = index;
+        
+        // Hide all images
+        images.forEach(img => {
+          img.style.display = 'none';
+        });
+        
+        // Show the selected image
+        images[currentIndex].style.display = 'block';
+        
+        // Update active dot
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+      
+      // Touch event handlers
+      slider.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', (e) => {
+        touchEndX = e.touches[0].clientX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', () => {
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > minSwipeDistance) {
+          if (swipeDistance > 0) {
+            // Swipe right - show previous image
+            showImage(currentIndex - 1);
+          } else {
+            // Swipe left - show next image
+            showImage(currentIndex + 1);
+          }
+        }
+      });
+      
+      // Add click event to each dot
+      dots.forEach((dot, dotIndex) => {
+        dot.addEventListener('click', () => {
+          showImage(dotIndex);
+        });
+      });
+      
+      // Add click events to arrows
+      prevArrow?.addEventListener('click', () => {
+        showImage(currentIndex - 1);
+      });
+      
+      nextArrow?.addEventListener('click', () => {
+        showImage(currentIndex + 1);
+      });
+
+      // Auto-sliding functionality
+      let slideInterval: number | null = null;
+
+      function startSliding() {
+        if (slideInterval) return;
+        slideInterval = window.setInterval(() => {
+          showImage(currentIndex + 1);
+        }, 3000);
+      }
+
+      function stopSliding() {
+        if (slideInterval) {
+          clearInterval(slideInterval);
+          slideInterval = null;
+        }
+      }
+
+      // Start sliding on hover
+      slider.addEventListener('mouseenter', startSliding);
+      slider.addEventListener('mouseleave', stopSliding);
+
+      // Stop sliding when manually changing slides
+      dots.forEach(dot => {
+        dot.addEventListener('click', stopSliding);
+      });
+      
+      prevArrow?.addEventListener('click', stopSliding);
+      nextArrow?.addEventListener('click', stopSliding);
+    });
+
+    // Add search input event listener
+    searchInput?.addEventListener('input', filterCars);
+  });
+</script>
+
+<style>
+  .car-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    width: 100%;
+    /* aspect-ratio: 16/9; */
+    display: block;
+  }
+
+  .slider-images {
+    width: 100%;
+    position: relative;
+    display: block;
+  }
+
+  .slider-image {
+    width: 100%;
+  }
+  .slider-image img {
+    width: 100%;
+    /* height: 100px; */
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    max-width: 100%;
+  }
+
+  .slider-image img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .slider-nav {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+
+  .nav-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .nav-dot.active {
+    background: #333;
+  }
+
+  /* Arrow Navigation Styles */
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .slider-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+  }
+
+  .prev-arrow {
+    left: 10px;
+  }
+
+  .next-arrow {
+    right: 10px;
+  }
+
+  .more-details {
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .more-details-checkbox {
+    display: none;
+  }
+
+  .more-details-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0;
+    padding-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .more-details-label:hover {
+    color: var(--accent-color);
+  }
+
+  .more-details-label .label-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .more-details-label .arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    opacity: 0.8;
+  }
+
+  .more-details-checkbox:checked + .more-details-label .arrow {
+    transform: rotate(180deg);
+  }
+
+  .more-details-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+  }
+
+  .more-details-checkbox:checked ~ .more-details-content {
+    max-height: 500px;
+  }
+
+  .more-details-content ul {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .more-details-content ul li {
+    color: var(--white-color);
+    font-size: 14px;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  .more-details-content ul li.type-item {
+    font-weight: 500;
+    opacity: 1;
+    color: var(--accent-color);
+  }
+
+  .more-details-content ul li:before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    color: var(--accent-color);
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .more-details-label {
+        padding: 10px 0;
+        font-size: 14px;
+    }
+    
+    .more-details-content ul {
+        padding: 10px 0;
+    }
+    
+    .more-details-content ul li {
+        font-size: 13px;
+        padding-left: 20px;
+    }
+  }
+
+  /* Mobile Filter Styles */
+  .mobile-filter-toggle {
+    display: none;
+    margin-bottom: 15px;
+  }
+
+  .filter-toggle-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .filter-toggle-btn:hover {
+    background-color: var(--accent-color-dark);
+  }
+
+  .filter-icon {
+    font-size: 20px;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .mobile-filter-toggle {
+        display: block;
+    }
+
+    .fleets-sidebar {
+        display: none;
+        margin-bottom: 20px;
+    }
+
+    .fleets-sidebar.active {
+        display: block;
+    }
+  }
+</style>

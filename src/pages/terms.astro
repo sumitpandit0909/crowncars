@@ -1,0 +1,42 @@
+---
+import GeneralHero from "../components/global/GeneralHero.astro";
+import Layout from "../layouts/Layout.astro";
+import {seo} from "../lib/config.json"
+---
+
+<Layout title={seo.terms.title} description={seo.terms.description}>
+    <GeneralHero title="Terms & Conditions" />
+    
+    <section class="container mx-auto p-6 m-5">
+        <h2 class="text-2xl font-bold mb-4">Crown Cars Rental Terms & Conditions</h2>
+        
+        <h3 class="text-xl font-semibold mt-4">1. Rental Eligibility</h3>
+        <p>Customers must be at least 21 years old and possess a valid driving license with a minimum of 1 year of driving experience. International renters must provide a valid passport and an International Driving Permit (IDP).</p>
+        
+        <h3 class="text-xl font-semibold mt-4">2. Booking & Payment</h3>
+        <p>All bookings require a valid credit/debit card for payment. A refundable security deposit will be held during the rental period and returned upon the vehicle's safe return.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">3. Vehicle Usage</h3>
+        <p>The rented vehicle must be used responsibly. Off-road driving, racing, towing, or illegal activities are strictly prohibited. Any damage due to negligence will be charged to the renter.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">4. Fuel Policy</h3>
+        <p>Vehicles are provided with a full tank of fuel and should be returned with the same. A refueling charge will apply if the vehicle is returned with less fuel.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">5. Insurance & Liability</h3>
+        <p>Basic insurance is included in the rental. Additional coverage can be purchased. Renters are responsible for any damages not covered by insurance.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">6. Late Returns</h3>
+        <p>Vehicles must be returned on or before the agreed time. Late returns will incur additional charges.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">7. Cancellation Policy</h3>
+        <p>Free cancellation is available up to 24 hours before the scheduled pickup time. Late cancellations may incur a penalty.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">8. Roadside Assistance</h3>
+        <p>24/7 roadside assistance is available for all rentals. Please contact our support team for help with breakdowns or emergencies.</p>
+        
+        <h3 class="text-xl font-semibold mt-4">9. Governing Law</h3>
+        <p>All rental agreements are governed by the laws of [your country/region]. Any disputes must be settled in the local jurisdiction.</p>
+        
+        <p class="mt-6 text-sm">By renting a vehicle from Crown Cars, you agree to abide by these terms and conditions.</p>
+    </section>
+</Layout>

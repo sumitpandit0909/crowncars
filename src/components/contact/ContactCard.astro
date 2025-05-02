@@ -1,0 +1,108 @@
+---
+import { Image } from "astro:assets";
+import ContactForm from "../react/ContactForm.jsx";
+import phone from "../../assets/images/icon-phone.svg";
+import mail from "../../assets/images/icon-mail.svg";
+import location from "../../assets/images/icon-location.svg";
+import {brand,socials} from "../../lib/config.json"
+---
+
+<!-- Page Contact Us Start -->
+<div class="page-contact-us">
+  <div class="contact-info-form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- Contact Information Start -->
+          <div class="contact-information">
+            <!-- Contact Information Title Start -->
+            <div class="section-title">
+              <h2 class="text-anime-style-3" data-cursor="-opaque">
+                Contact information
+              </h2>
+              <p>Say something to start a live chat!</p>
+            </div>
+            <!-- Contact Information Title End -->
+
+            <!-- Contact Information List Start -->
+            <div class="contact-info-list">
+              <!-- Contact Info Item Start -->
+              <div
+                class="contact-info-item wow fadeInUp"
+                data-wow-delay="0.25s"
+              >
+                <!-- Icon Box Start -->
+                <div class="icon-box">
+                  <Image src={phone} alt="" />
+                </div>
+                <!-- Icon Box End -->
+
+                <!-- Contact Info Content Start -->
+                <div class="contact-info-content">
+                  <p>{brand.contactNumber}</p>
+                </div>
+                <!-- Contact Info Content End -->
+              </div>
+              <!-- Contact Info Item End -->
+
+              <!-- Contact Info Item Start -->
+              <div class="contact-info-item wow fadeInUp" data-wow-delay="0.5s">
+                <!-- Icon Box Start -->
+                <div class="icon-box">
+                  <Image src={mail} alt="" />
+                </div>
+                <!-- Icon Box End -->
+
+                <!-- Contact Info Content Start -->
+                <div class="contact-info-content">
+                  <p>{brand.contactEmail}</p>
+                </div>
+                <!-- Contact Info Content End -->
+              </div>
+              <!-- Contact Info Item End -->
+
+              <!-- Contact Info Item Start -->
+              <div
+                class="contact-info-item wow fadeInUp"
+                data-wow-delay="0.75s"
+              >
+                <!-- Icon Box Start -->
+                <div class="icon-box">
+                  <Image src={location} alt="" />
+                </div>
+                <!-- Icon Box End -->
+
+                <!-- Contact Info Content Start -->
+                <div class="contact-info-content">
+                  <p>{brand.address}</p>
+                </div>
+                <!-- Contact Info Content End -->
+              </div>
+              <!-- Contact Info Item End -->
+            </div>
+            <!-- Contact Information List End -->
+
+            <!-- Contact Information Social Start -->
+            <div
+              class="contact-info-social wow fadeInUp"
+              data-wow-delay="0.25s"
+            >
+              <ul>
+                {
+                  socials.slice(0,5).map((item) => (
+                    <li><a href={item.url}><i class={item.iconClass}></i></a></li>
+                  ))
+                }
+              </ul>
+            </div>
+            <!-- Contact Information Social End -->
+          </div>
+          <!-- Contact Information End -->
+        </div>
+
+        <ContactForm client:load />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Contact Us End -->

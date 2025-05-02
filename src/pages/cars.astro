@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GeneralHero from "../components/global/GeneralHero.astro";
+import CarsListing from "../components/cars/CarsListing.astro";
+import {seo} from "../lib/config.json"
+---
+
+<Layout title={seo.cars.title} description={seo.cars.description}>
+    <GeneralHero title="Cars List"/>
+    <CarsListing/>
+
+</Layout>

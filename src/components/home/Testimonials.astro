@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import { testimonials } from "../../content/reviews.json";
+---
+
+<!-- Our Testimonial Start -->
+<div class="our-testimonial">
+  <div class="container">
+    <div class="row section-row">
+      <div class="col-lg-12">
+        <!-- Section Title Start -->
+        <div class="section-title">
+          <h3 class="wow fadeInUp">Testimonials</h3>
+          <h2 class="text-anime-style-3" data-cursor="-opaque">
+            What our customers are saying about us
+          </h2>
+        </div>
+        <!-- Section Title End -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Testimonial Slider Start -->
+        <div class="testimonial-slider">
+          <div class="swiper">
+            <div class="swiper-wrapper" data-cursor-text="Drag">
+              <!-- Testimonial Slides -->
+              {testimonials?.map((testimonial: any, index) => (
+                <div class="swiper-slide" key={index}>
+                  <div class="testimonial-item">
+                    <div class="testimonial-header">
+                      <div class="testimonial-rating">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <i
+                            class={
+                              i < testimonial.rating
+                                ? "fa-solid fa-star"
+                                : "fa-regular fa-star"
+                            }
+                          ></i>
+                        ))}
+                      </div>
+                      <div class="testimonial-content">
+                        <p>{testimonial.review}</p>
+                      </div>
+                    </div>
+                    <div class="testimonial-body">
+                      <div class="author-image">
+                        <figure class="image-anime">
+                          <Image
+                            src={testimonial.image}
+                            width={200}
+                            height={200}
+                            alt={testimonial.name}
+                          />
+                        </figure>
+                      </div>
+                      <div class="author-content">
+                        <h3>{testimonial.name}</h3>
+                        <p>{testimonial.position}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="testimonial-btn">
+              <div class="testimonial-button-prev"></div>
+              <div class="testimonial-button-next"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial Slider End -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Our Testimonial End -->

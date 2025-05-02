@@ -1,0 +1,33 @@
+{
+    "testimonials": [
+      {
+        "name": "Floyd Miles",
+        "position": "Project Manager",
+        "rating": 5,
+        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
+        "image": "https://i.imghippo.com/files/t3069s.jpg"
+      },
+      {
+        "name": "Annette Black",
+        "position": "Project Manager",
+        "rating": 4,
+        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
+        "image": "https://i.imghippo.com/files/paFD8705JpM.jpg"
+      },
+      {
+        "name": "Leslie Alexander",
+        "position": "Project Manager",
+        "rating": 3,
+        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
+        "image": "https://i.imghippo.com/files/df2322yM.jpg"
+      },
+      {
+        "name": "Alis White",
+        "position": "Project Manager",
+        "rating": 5,
+        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
+        "image": "https://i.imghippo.com/files/aGv1572OE.jpg"
+      }
+    ]
+  }
+  

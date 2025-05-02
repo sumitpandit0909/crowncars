@@ -1,0 +1,72 @@
+{
+    "brand": {
+      "name": "Crown Cars",
+      "title": "Crown Cars - Premium Car Rental Service",
+      "domain": "crowncars.com",
+      "description": "Crown Cars offers premium car rental services with a wide range of luxury, economy, and SUV vehicles for your travel needs.",
+      "gst": "29AABCT3518Q1ZV",
+      "contactEmail": "support@crowncars.com",
+      "contactNumber": "+91 98765 43210",
+      "address": "123, MG Road, New Delhi, India",
+      "map":"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.5757371067725!2d77.14254951107469!3d28.492320975640414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1ef70f0cec7d%3A0x82fa64a9848f51ce!2s123%2C%20Mehrauli-Gurgaon%20Rd%2C%20Ghitorni%2C%20New%20Delhi%2C%20Delhi%20122002!5e0!3m2!1sen!2sin!4v1743920116823!5m2!1sen!2sin"
+    },
+    "socials" : [
+      {
+        "name": "facebook",
+        "url": "https://www.facebook.com/crowncars",
+        "iconClass": "fab fa-facebook-f"
+      },
+      {
+        "name": "twitter",
+        "url": "https://twitter.com/crowncars",
+        "iconClass": "fab fa-twitter"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com/crowncars",
+        "iconClass": "fab fa-instagram"
+      },
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/company/crowncars",
+        "iconClass": "fab fa-linkedin-in"
+      },
+      {
+        "name": "google",
+        "url": "https://g.co/kgs/aPNDVeB",
+        "iconClass": "fab fa-google"
+      },
+      {
+        "name": "whatsapp",
+        "url": "https://wa.link/py3dsa",
+        "iconClass": "fab fa-whatsapp"
+      }
+    ],
+    "seo": {
+      "home": {
+        "title": "Crown Cars - Rent Luxury & Affordable Cars Easily",
+        "description": "Find the perfect rental car for your journey at Crown Cars. Affordable rates, luxury cars, and easy booking."
+      },
+      "about": {
+        "title": "About Crown Cars - Your Trusted Car Rental Partner",
+        "description": "Learn more about Crown Cars, our mission, values, and how we provide the best car rental experience."
+      },
+      "cars": {
+        "title": "Browse Our Fleet - Luxury & Economy Cars | Crown Cars",
+        "description": "Explore our wide range of rental cars, from luxury sedans to budget-friendly options. Find your perfect ride today."
+      },
+      "contactus": {
+        "title": "Contact Crown Cars - We're Here to Help!",
+        "description": "Have questions? Reach out to Crown Cars for support, bookings, and more."
+      },
+      "terms": {
+        "title": "Terms & Conditions - Crown Cars Rental Policy",
+        "description": "Read the terms and conditions of Crown Cars rental service. Know your rights and responsibilities before booking."
+      },
+      "privacy": {
+        "title": "Privacy Policy - Crown Cars",
+        "description": "Understand how Crown Cars handles your personal data. Read our privacy policy for full details."
+      }
+    }
+  }
+  
