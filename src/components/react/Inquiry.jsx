@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import carsData from "../../lib/carsData.json";
+// import carsData from "../../lib/carsData.json"; // Removed
+import { supabase } from "../../lib/supabase"; // Import Supabase client
 import iconRentDetails1 from "../../assets/images/icon-rent-details-1.svg";
 import iconRentDetails2 from "../../assets/images/icon-rent-details-2.svg";
 import iconRentDetails3 from "../../assets/images/icon-rent-details-3.svg";
@@ -10,6 +11,7 @@ import iconPhone from "../../assets/images/icon-phone.svg";
 
 const Inquiry = () => {
   const [loading, setLoading] = useState(false);
+  const [carTypes, setCarTypes] = useState([]); // State for car types
   const [form, setForm] = useState({
     car_type: "",
     pickup_location: "",
@@ -17,6 +19,27 @@ const Inquiry = () => {
     email: "",
     return_date: "",
   });
+
+  // Fetch car types from Supabase on mount
+  useEffect(() => {
+    const fetchCarTypes = async () => {
+      const { data, error } = await supabase
+        .from('cars')
+        .select('title')
+        .eq('is_available', true);
+      
+      if (error) {
+        console.error("Error fetching car types:", error);
+      } else if (data) {
+        // Remove year from title to get clean name if needed, or just use title
+        // Deduplicate if necessary
+        const types = Array.from(new Set(data.map(car => car.title.replace(/\b(19|20)\d{2}\b/, '').trim())));
+        setCarTypes(types);
+      }
+    };
+
+    fetchCarTypes();
+  }, []);
 
   // Format date to YYYY-MM-DD for input fields
   const formatDateForInput = (dateString) => {
@@ -105,9 +128,9 @@ const Inquiry = () => {
                           <option value="" disabled selected>
                             Choose Car Type
                           </option>
-                          {carsData.map((type, i) => (
-                            <option value={type.name} key={i}>
-                              {type.name}
+                          {carTypes.map((type, i) => (
+                            <option value={type} key={i}>
+                              {type}
                             </option>
                           ))}
                         </select>

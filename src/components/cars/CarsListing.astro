@@ -1,12 +1,25 @@
 ---
-import carsData from "../../lib/carsData.json";
-import arrow from "../../assets/images/arrow-white.svg";
 import { Image } from "astro:assets";
 import { FaUserFriends, FaCog, FaGasPump, FaPalette } from "react-icons/fa";
 import { Fragment } from "react";
-import {socials} from "../../lib/config.json"
+import {socials} from "../../lib/config.json";
 import { FaFilter } from 'react-icons/fa';
-// import { Filter } from 'lucide-react';
+import { supabase } from "../../lib/supabase";
+import { mapSupabaseCarToUI } from "../../lib/carMapper";
+
+// Fetch cars from Supabase
+const { data: supabaseCars, error } = await supabase
+  .from('cars')
+  .select('*')
+  .eq('is_available', true);
+
+let cars = [];
+
+if (error) {
+  console.error("Error fetching cars:", error);
+} else if (supabaseCars) {
+  cars = supabaseCars.map(mapSupabaseCarToUI);
+}
 ---
 
 <!-- Page Fleets Start -->
@@ -117,29 +130,33 @@ import { FaFilter } from 'react-icons/fa';
             <div class="col-lg-9">
                 <div class="fleets-collection-box">
                     <div class="row">
-                        {carsData.map((car) => (
-                            <Fragment>
+                        {cars.map((car, index) => (
+                            <Fragment key={index}>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="perfect-fleet-item fleets-collection-item wow fadeInUp">
                                         <!-- Image Slider Start -->
                                         <div class="image-box car-slider" id={`slider-${car.name}`} data-car-name={car.name}>
                                             <div class="slider-images">
-                                                {car.images.map((img, index) => (
-                                                    <div class="slider-image" data-index={index} style={{display: index === 0 ? 'block' : 'none'}}>
-                                                        <Image src={img} width={800} height={450} alt={`Car ${index + 1}`} />
+                                                {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
+                                                    <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
+                                                        <Image src={img} width={800} height={450} alt={`${car.name} image ${imgIndex + 1}`} inferSize={true}  />
                                                     </div>
                                                 ))}
                                             </div>
 
-                                            <!-- Arrow Navigation -->
-                                            <div class="slider-arrow prev-arrow">&#10094;</div>
-                                            <div class="slider-arrow next-arrow">&#10095;</div>
+                                            {car.images && car.images.length > 1 && (
+                                              <>
+                                                <!-- Arrow Navigation -->
+                                                <div class="slider-arrow prev-arrow">&#10094;</div>
+                                                <div class="slider-arrow next-arrow">&#10095;</div>
 
-                                            <div class="slider-nav">
-                                                {car.images.map((_, index) => (
-                                                    <span class={`nav-dot ${index === 0 ? 'active' : ''}`} data-index={index}></span>
-                                                ))}
-                                            </div>
+                                                <div class="slider-nav">
+                                                    {car.images.map((_, dotIndex) => (
+                                                        <span class={`nav-dot ${dotIndex === 0 ? 'active' : ''}`} data-index={dotIndex}></span>
+                                                    ))}
+                                                </div>
+                                              </>
+                                            )}
                                         </div>
                                         <!-- Image Slider End -->
 
@@ -157,14 +174,16 @@ import { FaFilter } from 'react-icons/fa';
                                                 </ul>
                                             </div>
                                             <div class="more-details">
-                                                <input type="checkbox" id={`more-details-${car.name}`} class="more-details-checkbox">
-                                                <label for={`more-details-${car.name}`} class="more-details-label">
+                                                <input type="checkbox" id={`more-details-${car.name}-${index}`} class="more-details-checkbox">
+                                                <label for={`more-details-${car.name}-${index}`} class="more-details-label">
                                                     <span class="label-text">More Details</span>
                                                     <span class="arrow">▼</span>
                                                 </label>
                                                 <div class="more-details-content">
                                                     <ul>
                                                         <li class="type-item">Type: {car.type}</li>
+                                                        <li>Music System: Available</li>
+                                                        <li>Fastag: Active</li>
                                                         {
                                                             car.features.extra.map((item)=>{
                                                                 return <li>{item}</li>
@@ -182,9 +201,6 @@ import { FaFilter } from 'react-icons/fa';
                                                 <div class="perfect-fleet-btn">
                                                     <a href={socials.whatsapp} target="_blank" class="section-icon-btn"><i class="fa-brands fa-whatsapp" style="color: white;font-size: 20px;"></i></a>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <p>{car.offers} Off - {car.offer_description}</p>
                                             </div>
                                         </div>
                                     </div>

@@ -1,10 +1,25 @@
 ---
-import carsData from "../../lib/carsData.json";
-import arrow from "../../assets/images/arrow-white.svg";
 import { Image } from "astro:assets";
 import { FaUserFriends, FaCog, FaGasPump, FaPalette } from "react-icons/fa";
 import { Fragment } from "react";
-import {socials} from "../../lib/config.json"
+import {socials} from "../../lib/config.json";
+import { supabase } from "../../lib/supabase";
+import { mapSupabaseCarToUI } from "../../lib/carMapper";
+
+// Fetch 3 cars from Supabase
+const { data: supabaseCars, error } = await supabase
+  .from('cars')
+  .select('*')
+  .eq('is_available', true)
+  .limit(3);
+
+let cars = [];
+
+if (error) {
+  console.error("Error fetching cars:", error);
+} else if (supabaseCars) {
+  cars = supabaseCars.map(mapSupabaseCarToUI);
+}
 ---
 
 <!-- Page Fleets Start -->
@@ -22,34 +37,38 @@ import {socials} from "../../lib/config.json"
         <!-- Section Title End -->
       </div>
     </div>
-    <div class="container" style="display: flex; justify-content: center">
+    <div class="container" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
         
             <div class="col-lg-9">
                 <div class="fleets-collection-box">
                     <div class="row">
-                        {carsData.slice(0,4).map((car) => (
-                            <Fragment>
+                        {cars.map((car, index) => (
+                            <Fragment key={index}>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="perfect-fleet-item fleets-collection-item wow fadeInUp">
                                         <!-- Image Slider Start -->
                                         <div class="image-box car-slider" id={`slider-${car.name}`} data-car-name={car.name}>
                                             <div class="slider-images">
-                                                {car.images.map((img, index) => (
-                                                    <div class="slider-image" data-index={index} style={{display: index === 0 ? 'block' : 'none'}}>
-                                                        <Image src={img} width={800} height={450} alt={`Car ${index + 1}`} />
+                                                {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
+                                                    <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
+                                                        <Image src={img} width={800} height={450} alt={`${car.name} image ${imgIndex + 1}`} inferSize={true} />
                                                     </div>
                                                 ))}
                                             </div>
 
-                                            <!-- Arrow Navigation -->
-                                            <div class="slider-arrow prev-arrow">&#10094;</div>
-                                            <div class="slider-arrow next-arrow">&#10095;</div>
+                                            {car.images && car.images.length > 1 && (
+                                              <>
+                                                <!-- Arrow Navigation -->
+                                                <div class="slider-arrow prev-arrow">&#10094;</div>
+                                                <div class="slider-arrow next-arrow">&#10095;</div>
 
-                                            <div class="slider-nav">
-                                                {car.images.map((_, index) => (
-                                                    <span class={`nav-dot ${index === 0 ? 'active' : ''}`} data-index={index}></span>
-                                                ))}
-                                            </div>
+                                                <div class="slider-nav">
+                                                    {car.images.map((_, dotIndex) => (
+                                                        <span class={`nav-dot ${dotIndex === 0 ? 'active' : ''}`} data-index={dotIndex}></span>
+                                                    ))}
+                                                </div>
+                                              </>
+                                            )}
                                         </div>
                                         <!-- Image Slider End -->
 
@@ -76,9 +95,6 @@ import {socials} from "../../lib/config.json"
                                                     <a href={socials.whatsapp} target="_blank" class="section-icon-btn"><i class="fa-brands fa-whatsapp" style="color: white;font-size: 20px;"></i></a>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p>{car.offers} Off - {car.offer_description}</p>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,6 +102,10 @@ import {socials} from "../../lib/config.json"
                         ))}
                     </div>
                 </div>
+            </div>
+
+            <div class="col-lg-12" style="text-align: center; margin-top: 40px;">
+                <a href="/cars" class="btn-default">Explore More</a>
             </div>
         </div>
     </div>
