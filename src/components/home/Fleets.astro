@@ -74,7 +74,7 @@ if (error) {
 
                                         <div class="perfect-fleet-content">
                                             <div class="perfect-fleet-title">
-                                                <h3>{car.name} - {car.model}</h3>
+                                                <h3>{car.name}{car.model ? ` - ${car.model}` : ''}</h3>
                                             </div>
 
                                             <div class="perfect-fleet-body">

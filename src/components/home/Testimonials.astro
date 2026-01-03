@@ -48,10 +48,10 @@ import { testimonials } from "../../content/reviews.json";
                     <div class="testimonial-body">
                       <div class="author-image">
                         <figure class="image-anime">
-                          <Image
-                            src={testimonial.image}
-                            width={200}
-                            height={200}
+                          <img
+                            src={testimonial.image ? testimonial.image : `https://ui-avatars.com/api/?name=${testimonial.name}&background=random`}
+                            width="200"
+                            height="200"
                             alt={testimonial.name}
                           />
                         </figure>

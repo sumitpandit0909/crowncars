@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev",
+    "build": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -23,6 +23,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/react-icons": "^2.2.7"
+    "@types/react-icons": "^2.2.7",
+    "cross-env": "^10.1.0"
   }
 }

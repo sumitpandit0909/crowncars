@@ -55,7 +55,7 @@ if (error) {
 
                         <ul>
                             <li class="form-check">
-                                <input class="form-check-input transmission-filter" type="checkbox" value="automatic" id="transmission1">
+                                <input class="form-check-input transmission-filter" type="checkbox" value="auto" id="transmission1">
                                 <label class="form-check-label" for="transmission1">Automatic</label>
                             </li>
 
@@ -139,7 +139,7 @@ if (error) {
                                             <div class="slider-images">
                                                 {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
                                                     <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
-                                                        <Image src={img} width={800} height={450} alt={`${car.name} image ${imgIndex + 1}`} inferSize={true}  />
+                                                        <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} />
                                                     </div>
                                                 ))}
                                             </div>
@@ -162,7 +162,7 @@ if (error) {
 
                                         <div class="perfect-fleet-content">
                                             <div class="perfect-fleet-title">
-                                                <h3>{car.name} - {car.model}</h3>
+                                                <h3>{car.name}{car.model ? ` - ${car.model}` : ''}</h3>
                                             </div>
 
                                             <div class="perfect-fleet-body">

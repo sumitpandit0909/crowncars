@@ -45,7 +45,7 @@ export function mapSupabaseCarToUI(car: SupabaseCar): UIRequestCar {
     // The previous JSON had "2022" as model. We might want to parse it from title if it exists like "Tata Tiago 2022"
     // For now, let's look for a year in the title, or default to current year.
     const yearMatch = car.title.match(/\b(19|20)\d{2}\b/);
-    const modelYear = yearMatch ? yearMatch[0] : new Date().getFullYear().toString();
+    const modelYear = yearMatch ? yearMatch[0] : "";
 
     // Clean name by removing year if present to avoid duplication "Tata Tiago 2022 - 2022"
     const name = car.title.replace(/\b(19|20)\d{2}\b/, '').trim();
