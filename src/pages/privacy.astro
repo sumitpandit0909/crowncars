@@ -1,7 +1,13 @@
 ---
 import GeneralHero from "../components/global/GeneralHero.astro";
 import Layout from "../layouts/Layout.astro";
-import {seo} from "../lib/config.json"
+import {seo} from "../lib/config.json";
+import { marked } from "marked";
+import { fetchLegalPage } from "../lib/legal";
+import { Fragment } from "react";
+
+const privacyData = await fetchLegalPage('privacy');
+
 ---
 
 <Layout title={seo.privacy.title} description={seo.privacy.description}>
@@ -9,42 +15,17 @@ import {seo} from "../lib/config.json"
 
     <section class="terms-container m-5">
         <div class="container">
-            <h2>Privacy Policy</h2>
-            <p>At <strong>Crown Cars</strong>, we prioritize your privacy. This policy explains how we collect, use, and safeguard your personal information when you use our services.</p>
-            
-            <h3>1. Information We Collect</h3>
-            <ul>
-                <li><strong>Personal Information:</strong> Name, contact details, payment information.</li>
-                <li><strong>Vehicle Rental Data:</strong> Rental history, preferences, and feedback.</li>
-                <li><strong>Technical Data:</strong> IP address, browser type, and device information.</li>
-            </ul>
-            
-            <h3>2. How We Use Your Information</h3>
-            <ul>
-                <li>To process bookings and payments securely.</li>
-                <li>To improve our customer service and rental experience.</li>
-                <li>To comply with legal requirements and prevent fraud.</li>
-            </ul>
-            
-            <h3>3. Data Protection & Security</h3>
-            <p>We implement strict security measures to protect your data from unauthorized access, alteration, or disclosure.</p>
-            
-            <h3>4. Sharing Your Information</h3>
-            <p>We do not sell your data. However, we may share it with:</p>
-            <ul>
-                <li>Legal authorities if required.</li>
-                <li>Payment processors for secure transactions.</li>
-                <li>Partner service providers to enhance rental experiences.</li>
-            </ul>
-            
-            <h3>5. Your Rights & Choices</h3>
-            <p>You can access, update, or delete your personal data by contacting us. You may also opt out of marketing communications.</p>
-            
-            <h3>6. Changes to This Policy</h3>
-            <p>We may update this policy periodically. Any changes will be posted on our website.</p>
-            
-            <h3>7. Contact Us</h3>
-            <p>If you have any questions about this policy, please contact <strong>Crown Cars</strong> customer support.</p>
+            {privacyData ? (
+                <Fragment>
+                    <div class="content-box" set:html={marked.parse(privacyData.content_mdx)} />
+                    <p class="mt-4 text-sm text-gray-500">Last updated: {new Date(privacyData.updated_at).toLocaleDateString()}</p>
+                </Fragment>
+            ) : (
+                <div class="error-box">
+                    <h2>Privacy Policy</h2>
+                    <p>Unable to load privacy policy at this time. Please try again later.</p>
+                </div>
+            )}
         </div>
     </section>
 </Layout>
