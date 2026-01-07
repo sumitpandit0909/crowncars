@@ -4,7 +4,7 @@ import { a as socials, $ as $$Layout, s as seo } from '../chunks/Layout_Dh-fs9T-
 import { $ as $$GeneralHero } from '../chunks/GeneralHero_D4Jj1BFp.mjs';
 import { FaFilter, FaUserFriends, FaCog, FaGasPump, FaPalette } from 'react-icons/fa';
 import { Fragment } from 'react';
-import { s as supabase } from '../chunks/supabase_BIsWE_c6.mjs';
+import { s as supabase } from '../chunks/supabase_6dCz9F9L.mjs';
 import { m as mapSupabaseCarToUI } from '../chunks/carMapper_B4QkH3Dt.mjs';
 /* empty css                                */
 export { renderers } from '../renderers.mjs';

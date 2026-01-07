@@ -1,4 +1,4 @@
-import { s as supabase } from './supabase_BIsWE_c6.mjs';
+import { s as supabase } from './supabase_6dCz9F9L.mjs';
 
 async function fetchLegalPage(type) {
   try {

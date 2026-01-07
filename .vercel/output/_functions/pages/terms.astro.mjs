@@ -3,7 +3,7 @@ import 'piccolore';
 import { $ as $$GeneralHero } from '../chunks/GeneralHero_D4Jj1BFp.mjs';
 import { $ as $$Layout, s as seo } from '../chunks/Layout_Dh-fs9T-.mjs';
 import { marked } from 'marked';
-import { f as fetchLegalPage } from '../chunks/legal_CJS3DNzH.mjs';
+import { f as fetchLegalPage } from '../chunks/legal_DoYKhQbF.mjs';
 import { Fragment } from 'react';
 export { renderers } from '../renderers.mjs';
 
