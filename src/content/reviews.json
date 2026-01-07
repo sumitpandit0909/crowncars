@@ -1,33 +1,32 @@
 {
-    "testimonials": [
-      {
-        "name": "Floyd Miles",
-        "position": "Project Manager",
-        "rating": 5,
-        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
-        "image": "https://i.imghippo.com/files/t3069s.jpg"
-      },
-      {
-        "name": "Annette Black",
-        "position": "Project Manager",
-        "rating": 4,
-        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
-        "image": ""
-      },
-      {
-        "name": "Leslie Alexander",
-        "position": "Project Manager",
-        "rating": 3,
-        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
-        "image": "https://i.imghippo.com/files/df2322yM.jpg"
-      },
-      {
-        "name": "Alis White",
-        "position": "Project Manager",
-        "rating": 5,
-        "review": "Renting a car from Nova Ride was a great decision. Not only did I get a reliable and comfortable vehicle, but the prices were also very competitive.",
-        "image": "https://i.imghippo.com/files/aGv1572OE.jpg"
-      }
-    ]
-  }
-  
+  "testimonials": [
+    {
+      "name": "Rahul Sharma",
+      "position": "Project Manager",
+      "rating": 5,
+      "review": "Renting a car from Crown Cars was a great decision. The vehicle was comfortable, reliable, and the pricing was very reasonable.",
+      "image": "https://i.imghippo.com/files/t3069s.jpg"
+    },
+    {
+      "name": "Ananya Verma",
+      "position": "Project Manager",
+      "rating": 4,
+      "review": "Crown Cars made my travel smooth and hassle-free. The booking process was easy and the service was dependable.",
+      "image": ""
+    },
+    {
+      "name": "Rohit Mehta",
+      "position": "Project Manager",
+      "rating": 3,
+      "review": "Overall a good experience with Crown Cars. The car was well-maintained and suitable for city travel.",
+      "image": "https://i.imghippo.com/files/df2322yM.jpg"
+    },
+    {
+      "name": "Priya Singh",
+      "position": "Project Manager",
+      "rating": 5,
+      "review": "Crown Cars offers excellent service with clean cars and transparent pricing. Highly recommended.",
+      "image": "https://i.imghippo.com/files/aGv1572OE.jpg"
+    }
+  ]
+}

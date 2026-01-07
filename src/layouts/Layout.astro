@@ -41,21 +41,21 @@ import {socials} from "../lib/config.json"
   </head>
   <body>
     <!-- Preloader Start -->
-    <div class="preloader">
+    <!-- <div class="preloader">
       <div class="loading-container">
         <div class="loading"></div>
         <div id="loading-icon">
           <Image src={loader} alt="" />
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Preloader End -->
     <Header />
     <slot />
     <Footer />
 
     <!-- WhatsApp Button -->
-    <a href={socials.whatsapp} class="whatsapp-float" target="_blank">
+    <a href={socials[2].url} class="whatsapp-float" target="_blank">
       <i class="fab fa-whatsapp"></i>
     </a>
 
