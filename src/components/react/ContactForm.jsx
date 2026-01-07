@@ -23,7 +23,7 @@ const ContactForm = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch('https://chester-backend.onrender.com/api/v1/crownCars', {
+      const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

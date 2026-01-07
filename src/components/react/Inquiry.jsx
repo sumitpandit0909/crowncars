@@ -73,7 +73,7 @@ const Inquiry = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://chester-backend.onrender.com/api/v1/crownCarsinquiry",
+        `${import.meta.env.PUBLIC_API_URL}/api/inquiry`,
         {
           method: "POST",
           headers: {
