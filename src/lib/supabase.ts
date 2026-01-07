@@ -1,4 +1,4 @@
-
+export const prerender = false;
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || import.meta.env.SUPABASE_URL; 
