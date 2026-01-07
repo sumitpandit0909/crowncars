@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {brand} from "../../lib/config.json"
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const ContactForm = () => {
     <React.Fragment>
       <div className="col-lg-6">
         {/* Contact Form Start */}
-        <div className="whatsapp-btn" > <a href="https://wa.link/py3dsa" className="wa-text" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a></div>
+        <div className="whatsapp-btn" > <a href={brand.whatsappgroup} className="wa-text" target="_blank"><i class="fa-brands fa-whatsapp"></i> Join Our Official WhatsApp Group</a></div>
       
         <p style={{textAlign:"center"}}>or</p>
      

@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-
+import {brand} from "../../lib/config.json"
 import Inquiry from "../react/Inquiry";
 ---
 
@@ -26,7 +26,7 @@ import Inquiry from "../react/Inquiry";
 
             <div class="hero-content-body wow fadeInUp" data-wow-delay="0.5s">
               <a href="/contact" class="btn-default">Contact Us</a>
-              <a href="/about" class="btn-default btn-highlighted">learn more</a
+              <a href={brand.whatsappgroup} target="_blank" class="btn-default btn-highlighted">WhatsApp Group</a
               >
             </div>
           </div>
