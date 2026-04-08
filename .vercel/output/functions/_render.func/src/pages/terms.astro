@@ -1,0 +1,29 @@
+---
+import GeneralHero from "../components/global/GeneralHero.astro";
+import Layout from "../layouts/Layout.astro";
+import {seo} from "../lib/config.json";
+import { marked } from "marked";
+import { fetchLegalPage } from "../lib/legal";
+import { Fragment } from "react";
+
+const termsData = await fetchLegalPage('terms');
+
+---
+
+<Layout title={seo.terms.title} description={seo.terms.description}>
+    <GeneralHero title="Terms & Conditions" />
+    
+    <section class="container mx-auto p-6 m-5">
+        {termsData ? (
+            <Fragment>
+                 <div class="content-box" set:html={marked.parse(termsData.content_mdx)} />
+                 <p class="mt-4 text-sm text-gray-500">Last updated: {new Date(termsData.updated_at).toLocaleDateString()}</p>
+            </Fragment>
+        ) : (
+            <div class="error-box">
+                <h2>Terms & Conditions</h2>
+                <p>Unable to load terms and conditions at this time. Please try again later.</p>
+            </div>
+        )}
+    </section>
+</Layout>

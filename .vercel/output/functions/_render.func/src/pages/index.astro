@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/home/Hero.astro";
+import AboutUs from "../components/home/AboutUs.astro";
+import Fleets from "../components/home/Fleets.astro";
+import WhyUs from "../components/home/WhyUs.astro";
+import Testimonials from "../components/home/Testimonials.astro";
+import Cta from "../components/home/Cta.astro";
+import {seo} from "../lib/config.json"
+---
+
+<Layout title={seo.home.title} description={seo.home.description}>
+  <Hero />
+  <AboutUs />
+  <Fleets />
+  <Testimonials />
+  <WhyUs />
+  <Cta />
+</Layout>
