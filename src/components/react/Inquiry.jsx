@@ -8,15 +8,19 @@ import iconRentDetails4 from "../../assets/images/icon-rent-details-4.svg";
 import iconRentDetails5 from "../../assets/images/icon-rent-details-5.svg";
 import iconCalendar from "../../assets/images/icon-calendar.svg";
 import iconPhone from "../../assets/images/icon-phone.svg";
+import iconUser from "../../assets/images/icon-user.svg";
 
 const Inquiry = () => {
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [carTypes, setCarTypes] = useState([]); // State for car types
   const [form, setForm] = useState({
+    full_name: "",
     car_type: "",
     pickup_location: "",
     pickup_date: "",
-    email: "",
+    number: "",
     return_date: "",
   });
 
@@ -39,6 +43,13 @@ const Inquiry = () => {
     };
 
     fetchCarTypes();
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 992);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Format date to YYYY-MM-DD for input fields
@@ -85,17 +96,29 @@ const Inquiry = () => {
       const data = await response.json();
       console.log("Success:", data);
       setForm({
+        full_name: "",
         car_type: "",
         pickup_location: "",
         pickup_date: "",
-        email: "",
+        number: "",
         return_date: "",
       });
+      setIsModalOpen(false); // Close modal on success
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleOpenModal = (e) => {
+    e.preventDefault();
+    // Basic validation of row fields before opening modal
+    if (!form.car_type || !form.pickup_location || !form.pickup_date || !form.return_date) {
+      alert("Please fill in all search details.");
+      return;
+    }
+    setIsModalOpen(true);
   };
   return (
     <>
@@ -103,168 +126,229 @@ const Inquiry = () => {
       <div className="rent-details">
         <div className="container">
           {/* Filter Form Start */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleOpenModal}>
             <div className="row no-gutters align-items-center">
               <div className="col-md-12">
-                <div className="rent-details-box">
-                  <div className="rent-details-form">
-                    {/* Rent Details Item Start */}
-                    <div className="rent-details-item">
-                      <div className="icon-box">
-                        <img
-                          src={iconRentDetails1.src}
-                          alt="icon-rent-details-1"
-                        />
+                <div 
+                  className="rent-details-box" 
+                  style={{ 
+                    border: "0.5px solid rgba(255, 255, 255, 0.1)", 
+                    borderRadius: isMobile ? "30px" : "60px", 
+                    padding: isMobile ? "25px 20px" : "12px 30px", 
+                    margin: "0 auto", 
+                    width: isMobile ? "100%" : "auto", 
+                    minWidth: isMobile ? "auto" : "max-content",
+                    maxWidth: "1170px",
+                    backgroundColor: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(20px)",
+                    boxShadow: "0 15px 35px rgba(0, 0, 0, 0.2)"
+                  }}
+                >
+                  <div 
+                    className="rent-details-form" 
+                    style={{ 
+                      display: "flex", 
+                      flexDirection: isMobile ? "column" : "row",
+                      flexWrap: "wrap",
+                      justifyContent: "center", 
+                      alignItems: "stretch", 
+                      gap: isMobile ? "20px" : "0", 
+                      width: "100%" 
+                    }}
+                  >
+                    {/* Car Field */}
+                    <div className="rent-details-item" style={{ 
+                      width: isMobile ? "100%" : "auto", 
+                      minWidth: isMobile ? "auto" : "200px",
+                      borderRight: (!isMobile) ? "1px solid rgba(255,255,255,0.08)" : "none", 
+                      borderBottom: isMobile ? "1px solid rgba(255,255,255,0.08)" : "none",
+                      padding: isMobile ? "0 0 15px 0" : "0 20px",
+                      display: "flex", 
+                      alignItems: "center",
+                      flex: isMobile ? "none" : "1"
+                    }}>
+                      <div className="icon-box" style={{ marginRight: "12px", opacity: 0.8 }}>
+                        <img src={iconRentDetails1.src} alt="icon-rent-details-1" style={{ width: "22px" }} />
                       </div>
-                      <div className="rent-details-content">
-                        <h3>Car</h3>
+                      <div className="rent-details-content" style={{ flex: 1 }}>
+                        <h3 style={{ fontSize: "12px", marginBottom: "2px", color: "#FF3600", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "600" }}>Car</h3>
                         <select
                           name="car_type"
                           value={form.car_type}
                           onChange={handleChange}
-                          className="rent-details-form form-select"
-                          style={{ border: "none", outline: "none" }}
+                          className="form-select"
+                          style={{ 
+                            border: "none", 
+                            outline: "none", 
+                            fontSize: "15px", 
+                            padding: "0", 
+                            background: "transparent",
+                            color: "#E2E2E2",
+                            fontWeight: "500",
+                            width: "100%",
+                            cursor: "pointer"
+                          }}
+                          required
                         >
-                          <option value="" disabled selected>
-                            Choose Car Type
-                          </option>
+                          <option value="" disabled>Select Type</option>
                           {carTypes.map((type, i) => (
-                            <option value={type} key={i}>
-                              {type}
-                            </option>
+                            <option value={type} key={i} style={{ backgroundColor: "#000000ff",color:"white" }}>{type}</option>
                           ))}
                         </select>
                       </div>
                     </div>
-                    {/* Rent Details Item End */}
 
-                    {/* Rent Details Item Start */}
-                    <div className="rent-details-item">
-                      <div className="icon-box">
-                        <img
-                          src={iconRentDetails2.src}
-                          alt="icon-rent-details-2"
+                    {/* Pickup Date */}
+                    <div className="rent-details-item" style={{ 
+                      width: isMobile ? "100%" : "auto", 
+                      minWidth: isMobile ? "auto" : "180px",
+                      borderRight: (!isMobile) ? "1px solid rgba(255,255,255,0.08)" : "none", 
+                      borderBottom: isMobile ? "1px solid rgba(255,255,255,0.08)" : "none",
+                      padding: isMobile ? "15px 0" : "0 20px",
+                      display: "flex", 
+                      alignItems: "center",
+                      flex: isMobile ? "none" : "1"
+                    }}>
+                      <div className="icon-box" style={{ marginRight: "12px", opacity: 0.8 }}>
+                        <img src={iconCalendar.src} alt="icon-calendar" style={{ width: "22px" }} />
+                      </div>
+                      <div className="rent-details-content" style={{ flex: 1 }}>
+                        <h3 style={{ fontSize: "12px", marginBottom: "2px", color: "#FF3600", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "600" }}>Pickup</h3>
+                        <input
+                          type="date"
+                          name="pickup_date"
+                          value={form.pickup_date}
+                          onChange={handleChange}
+                          required
+                          style={{ 
+                            border: "none", 
+                            outline: "none", 
+                            fontSize: "15px", 
+                            padding: "0", 
+                            background: "transparent", 
+                            color: "#E2E2E2", 
+                            fontWeight: "500",
+                            width: "100%",
+                            cursor: "pointer",
+                            colorScheme: "dark"
+                          }}
+                          onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                          onFocus={(e) => e.target.showPicker && e.target.showPicker()}
                         />
                       </div>
-                      <div className="rent-details-content">
-                        <h3>pickup location</h3>
+                    </div>
+
+                    {/* Return Date */}
+                    <div className="rent-details-item" style={{ 
+                      width: isMobile ? "100%" : "auto", 
+                      minWidth: isMobile ? "auto" : "180px",
+                      borderRight: (!isMobile) ? "1px solid rgba(255,255,255,0.08)" : "none", 
+                      borderBottom: isMobile ? "1px solid rgba(255,255,255,0.08)" : "none",
+                      padding: isMobile ? "15px 0" : "0 20px",
+                      display: "flex", 
+                      alignItems: "center",
+                      flex: isMobile ? "none" : "1"
+                    }}>
+                      <div className="icon-box" style={{ marginRight: "12px", opacity: 0.8 }}>
+                        <img src={iconCalendar.src} alt="icon-calendar" style={{ width: "22px" }} />
+                      </div>
+                      <div className="rent-details-content" style={{ flex: 1 }}>
+                        <h3 style={{ fontSize: "12px", marginBottom: "2px", color: "#FF3600", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "600" }}>Return</h3>
+                        <input
+                          type="date"
+                          name="return_date"
+                          value={form.return_date}
+                          onChange={handleChange}
+                          required
+                          style={{ 
+                            border: "none", 
+                            outline: "none", 
+                            fontSize: "15px", 
+                            padding: "0", 
+                            background: "transparent", 
+                            color: "#E2E2E2", 
+                            fontWeight: "500",
+                            width: "100%",
+                            cursor: "pointer",
+                            colorScheme: "dark"
+                          }}
+                          onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                          onFocus={(e) => e.target.showPicker && e.target.showPicker()}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Pickup Location */}
+                    <div className="rent-details-item" style={{ 
+                      width: isMobile ? "100%" : "auto", 
+                      minWidth: isMobile ? "auto" : "180px",
+                      borderRight: (!isMobile) ? "1px solid rgba(255,255,255,0.08)" : "none", 
+                      borderBottom: isMobile ? "1px solid rgba(255,255,255,0.08)" : "none",
+                      padding: isMobile ? "15px 0" : "0 20px",
+                      display: "flex", 
+                      alignItems: "center",
+                      flex: isMobile ? "none" : "1"
+                    }}>
+                      <div className="icon-box" style={{ marginRight: "12px", opacity: 0.8 }}>
+                        <img src={iconRentDetails2.src} alt="icon-rent-details-2" style={{ width: "22px" }} />
+                      </div>
+                      <div className="rent-details-content" style={{ flex: 1 }}>
+                        <h3 style={{ fontSize: "12px", marginBottom: "2px", color: "#FF3600", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "600" }}>Location</h3>
                         <select
                           name="pickup_location"
                           value={form.pickup_location}
                           onChange={handleChange}
-                          className="rent-details-form form-select"
-                          style={{ border: "none", outline: "none" }}
+                          className="form-select"
+                          style={{ 
+                            border: "none", 
+                            outline: "none", 
+                            fontSize: "15px", 
+                            padding: "0", 
+                            background: "transparent",
+                            color: "#E2E2E2",
+                            fontWeight: "500",
+                            width: "100%",
+                            cursor: "pointer"
+                          }}
+                          required
                         >
-                          <option value="" disabled selected>
-                            Pick Up Location
-                          </option>
-                          <option value="Home Delivery">Home Delivery</option>
-                          <option value="self pickup">self pickup</option>
+                          <option value="" disabled>Select</option>
+                          <option value="Home Delivery" style={{ backgroundColor: "#000000ff",color:"white" }}>Home Delivery</option>
+                          <option value="Self Pickup" style={{ backgroundColor: "#000000ff",color:"white" }}>Self Pickup</option>
                         </select>
                       </div>
                     </div>
-                    {/* Rent Details Item End */}
 
-                    {/* Rent Details Item Start */}
-                    <div className="rent-details-item">
-                      <div className="icon-box">
-                        <img
-                          src={iconCalendar.src}
-                          alt="icon-calendar"
-                        />
-                      </div>
-                      <div className="rent-details-content">
-                        <h3>pickup date</h3>
-                        <p>
-                          <input
-                            type="date"
-                            name="pickup_date"
-                            value={form.pickup_date}
-                            onChange={handleChange}
-                            className="rent-details-form pickup-datepicker"
-                            required
-                            style={{ border: "none", outline: "none" }}
-                          />
-                        </p>
-                      </div>
-                    </div>
-                    {/* Rent Details Item End */}
-                    {/* Rent Details Item Start */}
-                    <div className="rent-details-item">
-                      <div className="icon-box">
-                        <img
-                          src={iconPhone.src}
-                          alt="icon-phone"
-                        />
-                      </div>
-                      <div className="rent-details-content">
-                        <h3>Phone number</h3>
-                        <p>
-                          <input
-                            type="number"
-                            name="email"
-                            value={form.email}
-                            onChange={handleChange}
-                            placeholder="Enter number"
-                            className=""
-                            required
-                            style={{
-                              border: "none",
-                              outline: "none",
-                              padding: "0px 5px",
-                              borderRadius: "5px",
-                              boxShadow: "none",
-                              backgroundColor: "transparent"
-                            }}
-                          />
-                        </p>
-                      </div>
-                    </div>
-                    {/* Rent Details Item End */}
-
-                    {/* Rent Details Item Start */}
-                    <div className="rent-details-item">
-                      <div className="icon-box">
-                        <img
-                          src={iconCalendar.src}
-                          alt="icon-calendar"
-                        />
-                      </div>
-                      <div className="rent-details-content">
-                        <h3>Return Date</h3>
-                        <p>
-                          <input
-                            type="date"
-                            name="return_date"
-                            value={form.return_date}
-                            onChange={handleChange}
-                            className="return-datepicker"
-                            required
-                            style={{ border: "none", outline: "none" }}
-                          />
-                        </p>
-                      </div>
-                    </div>
-                    {/* Rent Details Item End */}
-
-                    <div className="rent-details-item rent-details-search">
+                    {/* Search Button */}
+                    <div className="rent-details-item rent-details-search" style={{ 
+                      width: isMobile ? "100%" : "auto", 
+                      padding: isMobile ? "10px 0 0 0" : "0 0 0 20px", 
+                      display: "flex", 
+                      justifyContent: "center" 
+                    }}>
                       <button
                         type="submit"
+                        className="btn-main"
                         style={{
-                          padding: "15px",
+                          width: isMobile ? "100%" : "55px",
+                          height: "55px",
                           backgroundColor: "#FF3600",
                           color: "#fff",
-                          borderRadius: "50px",
+                          borderRadius: isMobile ? "12px" : "50%",
                           border: "none",
-                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          transition: "0.3s all ease",
+                          fontSize: isMobile ? "16px" : "18px",
+                          fontWeight: "600",
+                          boxShadow: "0 8px 15px rgba(255, 54, 0, 0.3)",
+                          textTransform: "uppercase"
                         }}
-                        disabled={loading}
                       >
-                        {loading ? (
-                          <i className="fa-solid fa-spinner fa-spin"></i>
-                        ) : (
-                          <i className="fa-solid fa-paper-plane"></i>
-                        )}
+                        {isMobile && <span style={{ marginRight: "10px" }}>Rent Now</span>}
+                        <i className="fa-solid fa-paper-plane"></i>
                       </button>
                     </div>
                   </div>
@@ -272,9 +356,122 @@ const Inquiry = () => {
               </div>
             </div>
           </form>
-          {/* Filter Form End */}
         </div>
       </div>
+
+      {/* Modal Popup Section */}
+      {isModalOpen && (
+        <div className="custom-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.85)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999,
+          backdropFilter: "blur(5px)"
+        }}>
+          <div className="custom-modal-content" style={{
+            backgroundColor: "#1a1a1a",
+            padding: "40px",
+            borderRadius: "20px",
+            width: "90%",
+            maxWidth: "500px",
+            border: "1px solid #FF3600",
+            position: "relative",
+            animation: "fadeInUp 0.3s ease-out"
+          }}>
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                background: "none",
+                border: "none",
+                color: "#fff",
+                fontSize: "24px",
+                cursor: "pointer"
+              }}
+            >
+              &times;
+            </button>
+            <h2 style={{ color: "#fff", marginBottom: "30px", fontSize: "24px", textAlign: "center" }}>Enter Your Details</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label style={{ color: "#FF3600", display: "block", marginBottom: "10px", fontWeight: "600" }}>Full Name</label>
+                <div style={{ position: "relative" }}>
+                  <img src={iconUser.src} alt="icon" style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", width: "20px" }} />
+                  <input
+                    type="text"
+                    name="full_name"
+                    value={form.full_name}
+                    onChange={handleChange}
+                    placeholder="Enter Your Full Name"
+                    required
+                    style={{
+                      width: "100%",
+                      padding: "15px 15px 15px 45px",
+                      backgroundColor: "#2a2a2a",
+                      border: "1px solid #444",
+                      borderRadius: "10px",
+                      color: "#fff",
+                      outline: "none"
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <label style={{ color: "#FF3600", display: "block", marginBottom: "10px", fontWeight: "600" }}>Phone Number</label>
+                <div style={{ position: "relative" }}>
+                  <img src={iconPhone.src} alt="icon" style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", width: "20px" }} />
+                  <input
+                    type="number"
+                    name="number"
+                    value={form.number}
+                    onChange={handleChange}
+                    placeholder="Enter Phone Number"
+                    required
+                    style={{
+                      width: "100%",
+                      padding: "15px 15px 15px 45px",
+                      backgroundColor: "#2a2a2a",
+                      border: "1px solid #444",
+                      borderRadius: "10px",
+                      color: "#fff",
+                      outline: "none"
+                    }}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  width: "100%",
+                  padding: "18px",
+                  backgroundColor: "#FF3600",
+                  color: "#fff",
+                  borderRadius: "10px",
+                  border: "none",
+                  fontWeight: "bold",
+                  fontSize: "18px",
+                  cursor: "pointer",
+                  marginTop: "10px",
+                  boxShadow: "0 10px 20px rgba(255, 54, 0, 0.2)"
+                }}
+              >
+                {loading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Send Request"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Rent Details Section End */}
     </>
   );

@@ -51,7 +51,7 @@ if (error) {
                                             <div class="slider-images">
                                                 {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
                                                     <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
-                                                        <Image src={img} width={800} height={450} alt={`${car.name} image ${imgIndex + 1}`} inferSize={true} />
+                                                        <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} />
                                                     </div>
                                                 ))}
                                             </div>
@@ -88,7 +88,7 @@ if (error) {
 
                                             <div class="perfect-fleet-footer">
                                                 <div class="perfect-fleet-pricing">
-                                                    <h2>₹{car.price}<span>/hr</span></h2>
+                                                    <h2>₹{car.price}<span>/day</span></h2>
                                                 </div>
 
                                                 <div class="perfect-fleet-btn">
