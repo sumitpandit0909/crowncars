@@ -1,5 +1,5 @@
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target" : { "namespace": "android_app", "package_name": "com.crowncars.app",
-               "sha256_cert_fingerprints": ["FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"] }
+               "sha256_cert_fingerprints": ["06:9E:59:0B:0E:1B:30:B8:89:2A:DF:D5:20:49:F3:CD:1B:01:04:33:11:6A:F0:5F:3E:DA:5A:64:B3:7C:36:FF"] }
 }]
