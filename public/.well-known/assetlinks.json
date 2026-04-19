@@ -1,5 +1,13 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.crowncars.app",
-               "sha256_cert_fingerprints": ["06:9E:59:0B:0E:1B:30:B8:89:2A:DF:D5:20:49:F3:CD:1B:01:04:33:11:6A:F0:5F:3E:DA:5A:64:B3:7C:36:FF"] }
-}]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.crowncars.app",
+      "sha256_cert_fingerprints": [
+        "06:9E:59:0B:0E:1B:30:B8:89:2A:DF:D5:20:49:F3:CD:1B:01:04:33:11:6A:F0:5F:3E:DA:5A:64:B3:7C:36:FF",
+        "57:83:EE:31:49:F7:C8:E1:D2:92:0A:5C:8F:03:0E:B7:09:28:E5:05:35:42:81:20:45:3E:04:57:82:EF:9F:B0"
+      ]
+    }
+  }
+]
