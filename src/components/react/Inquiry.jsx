@@ -14,6 +14,7 @@ const Inquiry = () => {
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
   const [carTypes, setCarTypes] = useState([]); // State for car types
   const [form, setForm] = useState({
     full_name: "",
@@ -125,6 +126,79 @@ const Inquiry = () => {
       {/* Rent Details Section Start */}
       <div className="rent-details">
         <div className="container">
+          {/* App Exclusive Banner */}
+          <div style={{
+            maxWidth: "1170px",
+            margin: "0 auto",
+            backgroundColor: "rgba(255, 255, 255, 0.05)",
+            backdropFilter: "blur(20px)",
+            borderRadius: isMobile ? "20px 20px 0 0" : "30px 30px 0 0",
+            border: "0.5px solid rgba(255, 255, 255, 0.1)",
+            borderBottom: "none",
+            padding: isMobile ? "25px 20px" : "30px 40px",
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "20px",
+            position: "relative",
+            zIndex: 2,
+            marginBottom: "-1px"
+          }}>
+            <h3 style={{ color: "#fff", fontSize: isMobile ? "18px" : "22px", fontWeight: "600", margin: 0, letterSpacing: "0.5px" }}>
+              Unlock App-Exclusive Offers & Faster Booking!
+            </h3>
+            
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center", width: "100%", alignItems: "center" }}>
+              {/* Apple Store Button */}
+              <a href="#" onClick={(e) => { e.preventDefault(); setIsComingSoonModalOpen(true); }} style={{
+                display: "flex", alignItems: "center", gap: "10px", 
+                backgroundColor: "rgba(0,0,0,0.5)", border: "1px solid rgba(255, 255, 255, 0.3)", 
+                padding: "8px 20px", borderRadius: "12px", color: "#fff", 
+                textDecoration: "none", transition: "all 0.3s ease",
+                minWidth: "160px"
+              }}>
+                <i className="fa-brands fa-apple" style={{ fontSize: "28px" }}></i>
+                <div style={{ textAlign: "left", display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "10px", lineHeight: "1.2", opacity: 0.8 }}>Download on the</span>
+                  <span style={{ fontSize: "16px", fontWeight: "600", lineHeight: "1.2" }}>App Store</span>
+                </div>
+              </a>
+
+              {/* Download Our App Button */}
+              <a href="https://play.google.com/store/apps/details?id=com.crowncars.app" target="_blank" rel="noopener noreferrer" style={{
+                display: "flex", alignItems: "center", gap: "10px", 
+                backgroundColor: "#FF3600", padding: "10px 24px", 
+                borderRadius: "30px", color: "#fff", textDecoration: "none",
+                boxShadow: "0 8px 15px rgba(255, 54, 0, 0.3)",
+                transition: "all 0.3s ease"
+              }}>
+                <div style={{ backgroundColor: "#000", borderRadius: "50%", width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <i className="fa-solid fa-crown" style={{ fontSize: "12px", color: "#FF3600" }}></i>
+                </div>
+                <span style={{ fontSize: "16px", fontWeight: "700" }}>Download Our App</span>
+              </a>
+
+              {/* Google Play Button */}
+              <a href="https://play.google.com/store/apps/details?id=com.crowncars.app" target="_blank" rel="noopener noreferrer" style={{
+                display: "flex", alignItems: "center", gap: "10px", 
+                backgroundColor: "rgba(0,0,0,0.5)", border: "1px solid rgba(255, 255, 255, 0.3)", 
+                padding: "8px 20px", borderRadius: "12px", color: "#fff", 
+                textDecoration: "none", transition: "all 0.3s ease",
+                minWidth: "160px"
+              }}>
+                {/* Google Play Icon Image/Font */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 2v20l18-10L3 2z"/>
+                </svg>
+                <div style={{ textAlign: "left", display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "10px", lineHeight: "1.2", opacity: 0.8 }}>GET IT ON</span>
+                  <span style={{ fontSize: "16px", fontWeight: "600", lineHeight: "1.2" }}>Google Play</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
           {/* Filter Form Start */}
           <form onSubmit={handleOpenModal}>
             <div className="row no-gutters align-items-center">
@@ -133,7 +207,7 @@ const Inquiry = () => {
                   className="rent-details-box" 
                   style={{ 
                     border: "0.5px solid rgba(255, 255, 255, 0.1)", 
-                    borderRadius: isMobile ? "30px" : "60px", 
+                    borderRadius: isMobile ? "0 0 20px 20px" : "0 0 30px 30px", 
                     padding: isMobile ? "25px 20px" : "12px 30px", 
                     margin: "0 auto", 
                     width: isMobile ? "100%" : "auto", 
@@ -141,7 +215,9 @@ const Inquiry = () => {
                     maxWidth: "1170px",
                     backgroundColor: "rgba(255, 255, 255, 0.05)",
                     backdropFilter: "blur(20px)",
-                    boxShadow: "0 15px 35px rgba(0, 0, 0, 0.2)"
+                    boxShadow: "0 15px 35px rgba(0, 0, 0, 0.2)",
+                    position: "relative",
+                    zIndex: 1
                   }}
                 >
                   <div 
@@ -469,6 +545,74 @@ const Inquiry = () => {
                 {loading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Send Request"}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Coming Soon Modal */}
+      {isComingSoonModalOpen && (
+        <div className="custom-modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.85)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999,
+          backdropFilter: "blur(5px)"
+        }}>
+          <div className="custom-modal-content" style={{
+            backgroundColor: "#1a1a1a",
+            padding: "40px",
+            borderRadius: "20px",
+            width: "90%",
+            maxWidth: "400px",
+            border: "1px solid #FF3600",
+            position: "relative",
+            animation: "fadeInUp 0.3s ease-out",
+            textAlign: "center"
+          }}>
+            <button 
+              onClick={() => setIsComingSoonModalOpen(false)}
+              style={{
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                background: "none",
+                border: "none",
+                color: "#fff",
+                fontSize: "24px",
+                cursor: "pointer"
+              }}
+            >
+              &times;
+            </button>
+            <i className="fa-brands fa-apple" style={{ fontSize: "60px", color: "#fff", marginBottom: "20px" }}></i>
+            <h2 style={{ color: "#fff", marginBottom: "15px", fontSize: "28px" }}>Coming Soon</h2>
+            <p style={{ color: "#aaa", fontSize: "16px", lineHeight: "1.5" }}>
+              Our iOS app is currently under development and will be available on the App Store soon!
+            </p>
+            <button
+              onClick={() => setIsComingSoonModalOpen(false)}
+              style={{
+                width: "100%",
+                padding: "15px",
+                backgroundColor: "#FF3600",
+                color: "#fff",
+                borderRadius: "10px",
+                border: "none",
+                fontWeight: "bold",
+                fontSize: "16px",
+                cursor: "pointer",
+                marginTop: "25px",
+                boxShadow: "0 10px 20px rgba(255, 54, 0, 0.2)"
+              }}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
