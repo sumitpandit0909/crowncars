@@ -1,4 +1,5 @@
 export interface SupabaseCar {
+    id: string | number;
     brand_name: string;
     title: string;
     description: string | null;
@@ -15,6 +16,7 @@ export interface SupabaseCar {
 }
 
 export interface UIRequestCar {
+    id: string | number;
     name: string;
     model: string;
     images: string[];
@@ -31,6 +33,7 @@ export interface UIRequestCar {
     price: string; // UI uses string
     offers: string; // Not in DB
     offer_description: string; // Not in DB
+    rawFeatures: any; // Add rawFeatures
 }
 
 export function mapSupabaseCarToUI(car: SupabaseCar): UIRequestCar {
@@ -51,6 +54,7 @@ export function mapSupabaseCarToUI(car: SupabaseCar): UIRequestCar {
     const name = car.title.replace(/\b(19|20)\d{2}\b/, '').trim();
 
     return {
+        id: car.id,
         name: name,
         model: modelYear,
         images: car.image_urls || [],
@@ -69,6 +73,7 @@ export function mapSupabaseCarToUI(car: SupabaseCar): UIRequestCar {
         },
         price: car.price_per_day.toString(),
         offers: "0%", // Default
-        offer_description: "" // Default
+        offer_description: "", // Default
+        rawFeatures: featuresJson
     };
 }

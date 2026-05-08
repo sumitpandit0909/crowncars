@@ -1,0 +1,167 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GeneralHero from "../../components/global/GeneralHero.astro";
+import { supabase } from "../../lib/supabase";
+import { mapSupabaseCarToUI } from "../../lib/carMapper";
+import { FaUserFriends, FaCog, FaGasPump, FaPalette, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { brand } from "../../lib/config.json";
+import faqs from "../../lib/faq.json";
+
+export async function getStaticPaths() {
+  const { data: cars, error } = await supabase.from('cars').select('*');
+  
+  if (error || !cars) {
+    console.error("Error fetching cars for paths:", error);
+    return [];
+  }
+  
+  return cars.map((car) => {
+    const mapped = mapSupabaseCarToUI(car);
+    return {
+      params: { id: mapped.id.toString() },
+      props: { car: mapped },
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { car } = Astro.props;
+---
+
+<Layout title={`${car.name} | Crown Cars`} description={`Rent ${car.name} in Goa at Crown Cars. ${car.type}`}>
+    <GeneralHero title={car.name}/>
+    
+    <div class="page-car-details" style="padding: 60px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Image Gallery -->
+                    <div class="car-gallery-box wow fadeInUp">
+                        <img src={car.images[0] || "/assets/images/placeholder-car.jpg"} alt={car.name} id="main-car-image" class="main-image" style="width: 100%; border-radius: 10px; margin-bottom: 20px; object-fit: cover; aspect-ratio: 16/9;"/>
+                        
+                        {car.images && car.images.length > 1 && (
+                            <div class="thumbnail-gallery" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;">
+                                {car.images.map((img) => (
+                                    <img src={img} alt={`${car.name} thumbnail`} class="thumbnail" style="width: 120px; height: 80px; object-fit: cover; border-radius: 5px; cursor: pointer; transition: opacity 0.3s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"/>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    
+                    <div class="car-info-box wow fadeInUp" style="margin-top: 40px; background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <h2>{car.name} {car.model ? ` - ${car.model}` : ''}</h2>
+                        <h3 style="color: var(--accent-color); margin-bottom: 20px; font-size: 28px;">₹{car.price} <span style="font-size: 16px; color: var(--white-color);">/day</span></h3>
+                        
+                        <h4 style="margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Features</h4>
+                        <ul class="features-list" style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px;">
+                            <li style="display: flex; align-items: center;"><FaUserFriends style={{color: "var(--accent-color)", marginRight: "10px", fontSize: "18px"}} /> {car.features.seater} Seater</li>
+                            <li style="display: flex; align-items: center;"><FaCog style={{color: "var(--accent-color)", marginRight: "10px", fontSize: "18px"}} /> {car.features.transmission}</li>
+                            <li style="display: flex; align-items: center;"><FaGasPump style={{color: "var(--accent-color)", marginRight: "10px", fontSize: "18px"}} /> {car.features.fuel}</li>
+                            <li style="display: flex; align-items: center;"><FaPalette style={{color: "var(--accent-color)", marginRight: "10px", fontSize: "18px"}} /> {car.features.color}</li>
+                        </ul>
+                        
+                        {car.rawFeatures && Object.keys(car.rawFeatures).length > 0 && (
+                            <>
+                                <h4 style="margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Additional Features</h4>
+                                <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    {Array.isArray(car.rawFeatures) ? 
+                                        car.rawFeatures.map(feature => (
+                                            <li style="display: flex; align-items: center;"><FaCheckCircle style={{color: 'var(--accent-color)', marginRight: '10px', fontSize: '18px'}} /> <span style="text-transform: capitalize;">{String(feature).replace(/_/g, ' ')}</span></li>
+                                        ))
+                                    : Object.entries(car.rawFeatures).map(([key, value]) => {
+                                        if (key === 'extra' && Array.isArray(value)) {
+                                            return value.map(v => <li style="display: flex; align-items: center;"><FaCheckCircle style={{color: 'var(--accent-color)', marginRight: '10px', fontSize: '18px'}} /> <span style="text-transform: capitalize;">{v}</span></li>);
+                                        }
+                                        if (typeof value === 'boolean') {
+                                            if (!value) return null;
+                                            return <li style="display: flex; align-items: center;"><FaCheckCircle style={{color: 'var(--accent-color)', marginRight: '10px', fontSize: '18px'}} /> <span style="text-transform: capitalize;">{key.replace(/_/g, ' ')}</span></li>;
+                                        }
+                                        // If it's a numeric key, it's likely an array item that got mixed into an object
+                                        if (!isNaN(Number(key))) {
+                                            return <li style="display: flex; align-items: center;"><FaCheckCircle style={{color: 'var(--accent-color)', marginRight: '10px', fontSize: '18px'}} /> <span style="text-transform: capitalize;">{String(value)}</span></li>;
+                                        }
+                                        return <li style="display: flex; align-items: center;"><FaCheckCircle style={{color: 'var(--accent-color)', marginRight: '10px', fontSize: '18px'}} /> <strong style="text-transform: capitalize; margin-right: 5px;">{key.replace(/_/g, ' ')}:</strong> {String(value)}</li>;
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="booking-sidebar wow fadeInUp" style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 100px; margin-top: 20px;">
+                        <h3 style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Book This Car</h3>
+                        <p style="margin-bottom: 20px; font-size: 15px; line-height: 1.6;">Contact us via WhatsApp to book this <strong>{car.name}</strong> instantly.</p>
+                        <a href={`https://wa.me/919315451207?text=${encodeURIComponent('Hi, I want to book the ' + car.name)}`} target="_blank" style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; width: 100%; gap: 10px; background: var(--accent-color); color: var(--white-color); padding: 15px 25px; border-radius: 100px; font-weight: 700; text-decoration: none; transition: background 0.3s;" onmouseover="this.style.background='var(--primary-color)'" onmouseout="this.style.background='var(--accent-color)'">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Book via WhatsApp
+                        </a>
+                        <div style="text-align: center; margin: 20px 0; position: relative;">
+                            <span style="background: var(--bg-color); padding: 0 10px; position: relative; z-index: 2; font-size: 14px; opacity: 0.8;">Or call us directly</span>
+                            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.1); z-index: 1;"></div>
+                        </div>
+                        <a href={`tel:${brand.contactNumber.replace(/\\s/g, '')}`} style="display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); width: 100%; gap: 10px; padding: 15px 25px; border-radius: 100px; font-weight: 700; text-decoration: none; transition: all 0.3s;" onmouseover="this.style.background='var(--accent-color)'; this.style.color='var(--white-color)'" onmouseout="this.style.background='transparent'; this.style.color='var(--accent-color)'">
+                            <i class="fa-solid fa-phone"></i> {brand.contactNumber}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-5 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                <div class="col-lg-12">
+                    <div class="section-title text-center">
+                        <h3 class="wow fadeInUp">FAQs</h3>
+                        <h2 class="text-anime-style-3" data-cursor="-opaque">Frequently Asked Questions</h2>
+                    </div>
+                    
+                    <div class="our-faqs-accordion" id="carFaqsAccordion" style="margin-top: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                        {faqs.map((faq, index) => (
+                            <div class="accordion-item wow fadeInUp" data-wow-delay={`${0.1 * (index + 1)}s`}>
+                                <h2 class="accordion-header" id={`faqheading${index}`}>
+                                    <button
+                                        class={`accordion-button ${index !== 0 ? 'collapsed' : ''}`}
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target={`#faqcollapse${index}`}
+                                        aria-expanded={index === 0 ? "true" : "false"}
+                                        aria-controls={`faqcollapse${index}`}
+                                    >
+                                        {faq.question}
+                                    </button>
+                                </h2>
+                                <div
+                                    id={`faqcollapse${index}`}
+                                    class={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`}
+                                    aria-labelledby={`faqheading${index}`}
+                                    data-bs-parent="#carFaqsAccordion"
+                                >
+                                    <div class="accordion-body">
+                                        <p>{faq.answer}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('main-car-image');
+
+        if (thumbnails.length > 0 && mainImage) {
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function(e) {
+                    const target = e.target as HTMLImageElement;
+                    const src = target.getAttribute('src');
+                    if (src) {
+                        mainImage.setAttribute('src', src);
+                    }
+                });
+            });
+        }
+    });
+</script>
