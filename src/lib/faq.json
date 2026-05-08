@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "question": "Who pays for the Fuel and FASTag?",
+    "answer": "You are responsible for fuel costs during your rental period. The car will be provided with a full tank, and you should return it with a full tank. FASTag charges for tolls used during your booked trip are included in the rental fee. Any additional FASTag top-ups needed during your trip will be reimbursed upon submission of receipts."
+  },
+  {
+    "id": 2,
+    "question": "Can I modify or extend my trip after booking creation?",
+    "answer": "Yes, you can modify or extend your trip through the app before the trip starts. For extensions during an ongoing trip, you must request at least 2 hours before the scheduled end time. Modifications are subject to vehicle availability and may incur additional charges based on the new duration and any rate changes."
+  },
+  {
+    "id": 3,
+    "question": "How do I cancel my booking?",
+    "answer": "You can cancel your booking through the app under 'My Trips' section. Cancellation policies vary: 100% refund if cancelled 24+ hours before trip start, 50% refund if cancelled 6-24 hours before, and no refund if cancelled less than 6 hours before. In case of emergencies, contact our support team for assistance."
+  },
+  {
+    "id": 4,
+    "question": "What is refundable security deposit and why do I pay it?",
+    "answer": "The security deposit is a temporary hold on your payment method to cover potential damages, traffic violations, or additional charges. It's fully refundable within 3-7 business days after trip completion, provided there are no issues. The amount varies by vehicle type (typically ₹5,000-₹20,000) and helps ensure responsible usage."
+  },
+  {
+    "id": 5,
+    "question": "What is the policy around Limited Kms in Subscription?",
+    "answer": "Subscription plans include a daily kilometer limit (typically 100-200 km per day depending on the plan). Additional kilometers are charged at ₹8-₹15 per km. Unlimited kilometer packages are available for longer trips. Your trip details will clearly show the included kilometers and excess charges before confirmation."
+  },
+  {
+    "id": 6,
+    "question": "What does Fastag enabled means?",
+    "answer": "FASTag enabled means the vehicle is equipped with an electronic toll collection tag. This allows you to pass through toll plazas without stopping for cash payments. Toll charges are automatically deducted from the pre-loaded balance. The rental includes sufficient FASTag balance for typical toll usage during your booked duration."
+  },
+  {
+    "id": 7,
+    "question": "What happens if I forget my personal belongings in the car?",
+    "answer": "If you leave personal items in the car, immediately contact our support team. We'll coordinate with the next customer or cleaning team to retrieve your items. There's a ₹500 retrieval fee plus shipping costs if items need to be shipped. We're not responsible for valuable items left in vehicles."
+  },
+  {
+    "id": 8,
+    "question": "What happens if the car is caught by police?",
+    "answer": "All our vehicles have valid documents (RC, insurance, PUC). If stopped by police, show the digital documents available in the app. If fines are issued due to your driving (speeding, wrong parking, etc.), you're responsible for paying them. We'll deduct these from your security deposit and provide you with the challan copy."
+  },
+  {
+    "id": 9,
+    "question": "What can I do if I damage the car?",
+    "answer": "In case of damage: 1) Document it with photos immediately, 2) Contact our support team, 3) Do not attempt repairs yourself. Minor damages (scratches under 3 inches) are covered by the damage waiver. Major damages will be assessed, and repair costs will be deducted from your security deposit after providing estimates."
+  },
+  {
+    "id": 10,
+    "question": "What happens if there is an unused balance in FASTag after a trip?",
+    "answer": "Any unused FASTag balance remains with the vehicle for the next customer. We do not refund unused FASTag balance as it's factored into the overall rental pricing. The FASTag is pre-loaded with sufficient balance for typical toll usage during your booked duration."
+  },
+  {
+    "id": 11,
+    "question": "What happens if I return the car late?",
+    "answer": "Late returns incur additional charges: First hour grace period is free, then hourly charges apply at 1.5x the hourly rate. Returns over 4 hours late may be charged a full extra day. Always inform us if you'll be late - we may be able to accommodate if the vehicle isn't booked next. Repeated late returns may affect your account standing."
+  }
+]
