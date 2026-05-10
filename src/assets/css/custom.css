@@ -1328,10 +1328,31 @@ header.main-header .header-sticky.active{
 	cursor: none;
 }
 
+.card-stretched-link::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.slider-arrow, .slider-nav, .more-details-label, .more-details-content, .perfect-fleet-btn a {
+    position: relative;
+    z-index: 2;
+}
+
 .perfect-fleet-item{
 	background-color: var(--secondary-color);
 	border-radius: 30px;
 	padding: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.perfect-fleet-item:hover {
+    transform: translateY(-5px);
 }
 
 .perfect-fleet-item .image-box{
