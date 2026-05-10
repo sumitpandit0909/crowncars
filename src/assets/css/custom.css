@@ -1338,7 +1338,7 @@ header.main-header .header-sticky.active{
     z-index: 1;
 }
 
-.slider-arrow, .slider-nav, .more-details-label, .more-details-content, .perfect-fleet-btn a {
+.car-slider, .slider-arrow, .slider-nav, .more-details-label, .more-details-content, .perfect-fleet-btn a {
     position: relative;
     z-index: 2;
 }
