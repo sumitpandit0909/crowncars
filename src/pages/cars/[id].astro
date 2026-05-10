@@ -36,8 +36,8 @@ const { car } = Astro.props;
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Image Gallery -->
-                    <div class="car-gallery-box wow fadeInUp">
-                        <img src={car.images[0] || "/assets/images/placeholder-car.jpg"} alt={car.name} id="main-car-image" class="main-image" style="width: 100%; border-radius: 10px; margin-bottom: 20px; object-fit: cover; aspect-ratio: 16/9;"/>
+                    <div class="car-gallery-box wow fadeInUp" id="car-gallery-container" data-images={JSON.stringify(car.images || [])}>
+                        <img src={car.images && car.images.length > 0 ? car.images[0] : "/assets/images/placeholder-car.jpg"} alt={car.name} id="main-car-image" class="main-image" style="width: 100%; border-radius: 10px; margin-bottom: 20px; object-fit: cover; aspect-ratio: 16/9;"/>
                         
                         {car.images && car.images.length > 1 && (
                             <div class="thumbnail-gallery" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;">
@@ -149,19 +149,103 @@ const { car } = Astro.props;
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('car-gallery-container');
         const thumbnails = document.querySelectorAll('.thumbnail');
         const mainImage = document.getElementById('main-car-image');
 
-        if (thumbnails.length > 0 && mainImage) {
-            thumbnails.forEach(thumb => {
-                thumb.addEventListener('click', function(e) {
-                    const target = e.target as HTMLImageElement;
-                    const src = target.getAttribute('src');
-                    if (src) {
-                        mainImage.setAttribute('src', src);
+        if (mainImage && container) {
+            const imagesStr = container.getAttribute('data-images');
+            let images: string[] = [];
+            if (imagesStr) {
+                try {
+                    images = JSON.parse(imagesStr);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            if (images.length > 1) {
+                let currentIndex = 0;
+
+                const updateMainImage = (index: number) => {
+                    currentIndex = index;
+                    if (currentIndex >= images.length) currentIndex = 0;
+                    if (currentIndex < 0) currentIndex = images.length - 1;
+                    mainImage.setAttribute('src', images[currentIndex]);
+                };
+
+                if (thumbnails.length > 0) {
+                    thumbnails.forEach((thumb, index) => {
+                        thumb.addEventListener('click', function() {
+                            updateMainImage(index);
+                        });
+                    });
+                }
+
+                // Touch swipe logic for mobile
+                let touchstartX = 0;
+                let touchendX = 0;
+
+                mainImage.addEventListener('touchstart', e => {
+                    touchstartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+
+                mainImage.addEventListener('touchend', e => {
+                    touchendX = e.changedTouches[0].screenX;
+                    if (touchendX < touchstartX - 50) {
+                        updateMainImage(currentIndex + 1);
+                    }
+                    if (touchendX > touchstartX + 50) {
+                        updateMainImage(currentIndex - 1);
+                    }
+                }, { passive: true });
+                
+                // Mouse drag swipe logic for desktop
+                let isDragging = false;
+                let startX = 0;
+                
+                mainImage.addEventListener('mousedown', e => {
+                    isDragging = true;
+                    startX = e.clientX;
+                    mainImage.style.cursor = 'grabbing';
+                    e.preventDefault(); // Prevent default image dragging
+                });
+                
+                mainImage.addEventListener('mouseup', e => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    mainImage.style.cursor = 'grab';
+                    
+                    const endX = e.clientX;
+                    if (endX < startX - 50) {
+                        updateMainImage(currentIndex + 1);
+                    }
+                    if (endX > startX + 50) {
+                        updateMainImage(currentIndex - 1);
                     }
                 });
-            });
+                
+                mainImage.addEventListener('mouseleave', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        mainImage.style.cursor = 'grab';
+                    }
+                });
+                
+                mainImage.style.cursor = 'grab';
+                
+            } else if (thumbnails.length > 0) {
+                // Fallback
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function(e) {
+                        const target = e.target as HTMLImageElement;
+                        const src = target.getAttribute('src');
+                        if (src) {
+                            mainImage.setAttribute('src', src);
+                        }
+                    });
+                });
+            }
         }
     });
 </script>

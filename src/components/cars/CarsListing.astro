@@ -134,6 +134,7 @@ if (error) {
                             <Fragment key={index}>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="perfect-fleet-item fleets-collection-item wow fadeInUp">
+                                        <a href={`/cars/${car.id}`} class="card-stretched-link" aria-label={`View details for ${car.name}`}></a>
                                         <!-- Image Slider Start -->
                                         <div class="image-box car-slider" id={`slider-${car.name}`} data-car-name={car.name}>
                                             <div class="slider-images">
