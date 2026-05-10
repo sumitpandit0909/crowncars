@@ -140,8 +140,8 @@ if (error) {
                                             <div class="slider-images">
                                                 {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
                                                     <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
-                                                        <a href={`/cars/${car.id}`} style="display: block;">
-                                                            <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} />
+                                                        <a href={`/cars/${car.id}`} style="display: block;" draggable="false">
+                                                            <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} draggable="false" />
                                                         </a>
                                                     </div>
                                                 ))}
@@ -356,11 +356,12 @@ if (error) {
       
       // Touch event handlers
       slider.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
+        touchStartX = e.touches[0].screenX;
+        touchEndX = e.touches[0].screenX;
       }, { passive: true });
 
       slider.addEventListener('touchmove', (e) => {
-        touchEndX = e.touches[0].clientX;
+        touchEndX = e.touches[0].screenX;
       }, { passive: true });
 
       slider.addEventListener('touchend', () => {
@@ -375,6 +376,59 @@ if (error) {
             showImage(currentIndex + 1);
           }
         }
+      });
+
+      // Mouse drag swipe logic for desktop
+      let isDragging = false;
+      let startX = 0;
+      let isMoved = false;
+      
+      slider.addEventListener('mousedown', (e) => {
+          if ((e.target as HTMLElement).closest('.slider-arrow') || (e.target as HTMLElement).closest('.nav-dot')) return;
+          isDragging = true;
+          isMoved = false;
+          startX = e.clientX;
+          (slider as HTMLElement).style.cursor = 'grabbing';
+      });
+
+      slider.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const endX = e.clientX;
+          if (Math.abs(endX - startX) > 10) {
+              isMoved = true;
+          }
+      });
+      
+      slider.addEventListener('mouseup', (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+          (slider as HTMLElement).style.cursor = 'grab';
+          
+          const endX = e.clientX;
+          const swipeDistance = endX - startX;
+          
+          if (Math.abs(swipeDistance) > minSwipeDistance) {
+              if (swipeDistance > 0) {
+                  showImage(currentIndex - 1);
+              } else {
+                  showImage(currentIndex + 1);
+              }
+          }
+      });
+      
+      slider.addEventListener('mouseleave', () => {
+          if (isDragging) {
+              isDragging = false;
+              (slider as HTMLElement).style.cursor = 'grab';
+          }
+      });
+      
+      (slider as HTMLElement).style.cursor = 'grab';
+
+      slider.addEventListener('click', (e) => {
+          if (isMoved) {
+              e.preventDefault();
+          }
       });
       
       // Add click event to each dot
