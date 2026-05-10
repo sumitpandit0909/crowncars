@@ -51,7 +51,9 @@ if (error) {
                                             <div class="slider-images">
                                                 {(car.images && car.images.length > 0 ? car.images : ["/assets/images/placeholder-car.jpg"]).map((img, imgIndex) => (
                                                     <div class="slider-image" data-index={imgIndex} style={{display: imgIndex === 0 ? 'block' : 'none'}}>
-                                                        <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} />
+                                                        <a href={`/cars/${car.id}`} style="display: block;">
+                                                            <img src={img} width="800" height="450" alt={`${car.name} image ${imgIndex + 1}`} />
+                                                        </a>
                                                     </div>
                                                 ))}
                                             </div>
